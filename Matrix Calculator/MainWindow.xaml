@@ -1,0 +1,18 @@
+﻿<Window x:Class="Matrix_Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Matrix_Calculator"
+        mc:Ignorable="d"
+        Title="Matrix Calculator" Height="450" Width="800">
+    <Grid>
+        <TextBox x:Name="text1" HorizontalAlignment="Left" Height="83" Margin="29,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177"/>
+        <Button x:Name="fill" Content="Fill" HorizontalAlignment="Left" Margin="552,129,0,0" VerticalAlignment="Top" Width="76" Click="Fill_Click"/>
+        <TextBox x:Name="text2" HorizontalAlignment="Left" Height="83" Margin="255,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+        <TextBox x:Name="text3" HorizontalAlignment="Left" Height="83" Margin="66,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+        <Button x:Name="action" Content="action" HorizontalAlignment="Left" Margin="552,192,0,0" VerticalAlignment="Top" Width="76" Click="Action_Click"/>
+        <TextBox x:Name="text4" HorizontalAlignment="Left" Height="83" Margin="322,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+
+    </Grid>
+</Window>
