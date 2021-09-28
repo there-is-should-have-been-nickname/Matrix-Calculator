@@ -109,6 +109,36 @@ namespace Matrix_Calculator
             }
         }
 
+        public Matrix multiplicationOnNumber(int number)
+        {
+            int[,] multiplicationOnNumberMas = new int[rows, columns];
+
+            for (int i = 0; i < rows; ++i)
+            {
+                for (int p = 0; p < columns; ++p)
+                {
+                    multiplicationOnNumberMas[i, p] = nums[i, p] * number;
+                }
+            }
+
+            return new Matrix(rows, columns, multiplicationOnNumberMas);
+        }
+
+        public Matrix transposition() {
+            int[,] transpositionMas = new int[columns, rows];
+
+            for (int i = 0; i < rows; ++i)
+            {
+                for (int p = 0; p < columns; ++p)
+                {
+                    transpositionMas[p, i] = nums[i, p];
+                }
+            }
+
+            return new Matrix(columns, rows, transpositionMas);
+        }
+
+
         private int multiplicationRowOnColumn(int columns1, int[,] mas1, int[,] mas2, int indRow, int indColumn)
         {
             int result = 0;

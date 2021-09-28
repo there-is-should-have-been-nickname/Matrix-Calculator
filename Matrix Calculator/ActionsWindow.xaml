@@ -1,0 +1,25 @@
+﻿<Window x:Class="Matrix_Calculator.ActionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Matrix_Calculator"
+        mc:Ignorable="d"
+        Title="ActionsWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid x:Name="actionsFormGrid">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD6BFBF"/>
+                <GradientStop Color="#FFEA5252" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid HorizontalAlignment="Left" Height="332" Margin="119,34,0,0" VerticalAlignment="Top" Width="562">
+            <Button x:Name="actionsFormButtonMultiplicationByNumber" Content="Умножение на число" HorizontalAlignment="Left" Margin="174,46,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFF3EB99" BorderThickness="2" Click="actionsFormButtonMultiplicationByNumber_Click"/>
+            <Button x:Name="actionsFormButtonAdditionButton" Content="Сложение / вычитание" HorizontalAlignment="Left" Margin="174,102,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FF6FD8D4" BorderThickness="2" Click="actionsFormButtonAdditionButton_Click"/>
+            <Button x:Name="actionsFormButtonMultiplicationButton" Content="Умножение" HorizontalAlignment="Left" Margin="174,158,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFCD80C9" BorderThickness="2"/>
+            <Button x:Name="actionsFormButtonDeterminateButton" Content="Нахождение определителя" HorizontalAlignment="Left" Margin="174,215,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFA7CD80" BorderThickness="2"/>
+        </Grid>
+        
+        <!--<Button x:Name="actionsFormButton" Content="Назад" HorizontalAlignment="Left" Margin="74,344,0,0" VerticalAlignment="Top" Width="91" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFB8B1B1" BorderThickness="2" Click="actionsFormButton_Click"/>-->
+    </Grid>
+</Window>
