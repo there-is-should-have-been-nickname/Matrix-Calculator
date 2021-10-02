@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace Matrix_Calculator
 {
@@ -18,7 +13,6 @@ namespace Matrix_Calculator
         {
 
         }
-
 
         public Matrix(int rows, int columns, int[,] nums)
         {
@@ -42,7 +36,6 @@ namespace Matrix_Calculator
             }
 
         }
-
 
         public Matrix addition(Matrix matrix2)
         {
@@ -138,7 +131,6 @@ namespace Matrix_Calculator
             return new Matrix(columns, rows, transpositionMas);
         }
 
-
         private int multiplicationRowOnColumn(int columns1, int[,] mas1, int[,] mas2, int indRow, int indColumn)
         {
             int result = 0;
@@ -153,7 +145,7 @@ namespace Matrix_Calculator
         {
             if (rows == columns)
             {
-                int order = getOrder();
+                int order = rows;
 
                 if (order == 1)
                 {
@@ -186,11 +178,6 @@ namespace Matrix_Calculator
             {
                 throw new ArgumentException("Number of columns is not equal to the number of rows");
             }
-        }
-
-        private int getOrder()
-        {
-            return rows;
         }
 
         private Matrix getReducedMatrix(int indDeleteRow, int indDeleteColumn)

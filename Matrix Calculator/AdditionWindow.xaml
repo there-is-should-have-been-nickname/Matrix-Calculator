@@ -29,21 +29,6 @@
             <ComboBoxItem VerticalAlignment="Top" Width="50">
                 <Label HorizontalContentAlignment="Center" Content="5" Width="45" />
             </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="6" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="7" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="8" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="9" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="10" Width="45" />
-            </ComboBoxItem>
         </ComboBox>
 
         <ComboBox x:Name="additionFormColumns" Height="30" VerticalAlignment="Top" Margin="458,40,830,0" Width="86">
@@ -61,21 +46,6 @@
             </ComboBoxItem>
             <ComboBoxItem VerticalAlignment="Top" Width="50">
                 <Label HorizontalContentAlignment="Center" Content="5" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="6" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="7" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="8" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="9" Width="45" />
-            </ComboBoxItem>
-            <ComboBoxItem VerticalAlignment="Top" Width="50">
-                <Label HorizontalContentAlignment="Center" Content="10" Width="45" />
             </ComboBoxItem>
         </ComboBox>
 

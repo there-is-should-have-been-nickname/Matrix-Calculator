@@ -13,7 +13,7 @@
                 <GradientStop Color="#FFEA5252" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid HorizontalAlignment="Left" Height="332" Margin="119,34,0,0" VerticalAlignment="Top" Width="562">
+        <Grid HorizontalAlignment="Left" Height="330" Margin="120,34,0,0" VerticalAlignment="Top" Width="562">
             <Button x:Name="mainFormButtonActions" Content="Доступные вычисления" HorizontalAlignment="Left" Margin="175,139,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFF3EB99" BorderThickness="2" Click="mainFormButtonActions_Click"/>
             <Border x:Name="mainFormBorder" BorderBrush="#FF6CA011" BorderThickness="4" HorizontalAlignment="Left" Height="80" Margin="42,21,0,0" VerticalAlignment="Top" Width="479" CornerRadius="5">
                 <Label x:Name="mainFormLabel" Content="Визуализатор матричных вычислений" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="80" Width="479" Foreground="Black" FontSize="24" Margin="-1" FontFamily="Consolas"/>

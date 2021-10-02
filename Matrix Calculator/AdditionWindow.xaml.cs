@@ -202,7 +202,7 @@ namespace Matrix_Calculator
 
                     elemTextBox.VerticalAlignment = VerticalAlignment.Top;
                     elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
-                    elemTextBox.Margin = new Thickness(20 + p * 50 + 200, 20 + i * 50, 0, 0);
+                    elemTextBox.Margin = new Thickness(20 + p * 50 + columns * 50 + 100, 20 + i * 50, 0, 0);
                     initialMatrixTextBox2[i, p] = elemTextBox;
 
                     innerGrid.Children.Add(elemTextBox);
@@ -341,8 +341,8 @@ namespace Matrix_Calculator
             if (isAllMatrixCalculated())
             {
                 initialMatrixTextBox1[rows - 1, columns - 1].Background = Brushes.Gray;
+                initialMatrixTextBox2[rows - 1, columns - 1].Background = Brushes.Gray;
                 finalMatrixTextBox[rows - 1, columns - 1].Background = Brushes.Gray;
-                //numberTextBox.Background = Brushes.Gray;
                 timer.Stop();
                 timer.Tick -= timerTick;
             }
@@ -364,7 +364,6 @@ namespace Matrix_Calculator
                         initialMatrixTextBox1[i, p].Background = Brushes.Green;
                         initialMatrixTextBox2[i, p].Background = Brushes.Coral;
                         finalMatrixTextBox[i, p].Background = Brushes.Aqua;
-                        //numberTextBox.Background = Brushes.Coral;
                         finalMatrixTextBox[i, p].Text = finalMatrix.nums[i, p].ToString();
                         initialMatrixTextBox1[i, p].Tag = 1;
                         return;

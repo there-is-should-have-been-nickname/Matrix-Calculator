@@ -13,13 +13,14 @@
                 <GradientStop Color="#FFEA5252" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid HorizontalAlignment="Left" Height="332" Margin="119,34,0,0" VerticalAlignment="Top" Width="562">
-            <Button x:Name="actionsFormButtonMultiplicationByNumber" Content="Умножение на число" HorizontalAlignment="Left" Margin="174,46,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFF3EB99" BorderThickness="2" Click="actionsFormButtonMultiplicationByNumber_Click"/>
-            <Button x:Name="actionsFormButtonAdditionButton" Content="Сложение / вычитание" HorizontalAlignment="Left" Margin="174,102,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FF6FD8D4" BorderThickness="2" Click="actionsFormButtonAdditionButton_Click"/>
-            <Button x:Name="actionsFormButtonMultiplicationButton" Content="Умножение" HorizontalAlignment="Left" Margin="174,158,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFCD80C9" BorderThickness="2"/>
-            <Button x:Name="actionsFormButtonDeterminateButton" Content="Нахождение определителя" HorizontalAlignment="Left" Margin="174,215,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFA7CD80" BorderThickness="2"/>
+        <Grid HorizontalAlignment="Left" Height="330" Margin="120,34,0,0" VerticalAlignment="Top" Width="562">
+            <Button x:Name="actionsFormButtonMultiplicationByNumber" Content="Умножение на число" HorizontalAlignment="Left" Margin="170,27,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFF3EB99" BorderThickness="2" Click="actionsFormButtonMultiplicationByNumber_Click"/>
+            <Button x:Name="actionsFormButtonAdditionButton" Content="Сложение / вычитание" HorizontalAlignment="Left" Margin="170,83,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FF6FD8D4" BorderThickness="2" Click="actionsFormButtonAdditionButton_Click"/>
+            <Button x:Name="actionsFormButtonMultiplicationButton" Content="Умножение" HorizontalAlignment="Left" Margin="170,139,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFCD80C9" BorderThickness="2" Click="actionsFormButtonMultiplicationButton_Click"/>
+            <Button x:Name="actionsFormButtonDeterminateButton" Content="Нахождение определителя" HorizontalAlignment="Left" Margin="170,198,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFA7CD80" BorderThickness="2" Click="actionsFormButtonDeterminateButton_Click"/>
+            <Button x:Name="actionsFormButtonBack" Content="Назад" HorizontalAlignment="Left" Margin="170,254,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FF9696F7" BorderThickness="2" Click="actionsFormButtonBack_Click"/>
         </Grid>
-        
+
         <!--<Button x:Name="actionsFormButton" Content="Назад" HorizontalAlignment="Left" Margin="74,344,0,0" VerticalAlignment="Top" Width="91" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFB8B1B1" BorderThickness="2" Click="actionsFormButton_Click"/>-->
     </Grid>
 </Window>
