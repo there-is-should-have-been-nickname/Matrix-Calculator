@@ -88,6 +88,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Assistant.cs" />
     <Compile Include="DeterminantWindow.xaml.cs">
       <DependentUpon>DeterminantWindow.xaml</DependentUpon>
     </Compile>

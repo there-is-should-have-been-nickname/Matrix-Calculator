@@ -5,47 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Matrix_Calculator"
         mc:Ignorable="d"
-        Title="MultiplicationByNumberWindow" Height="360" ResizeMode="NoResize" Width="800">
-    <Grid x:Name="multiplicationByNumberFormGrid">
+        Title="MultiplicationByNumberWindow" Height="360" ResizeMode="NoResize" Width="1280">
+    <Grid x:Name="multiplicationByNumberFormGrid" Margin="0,0,0,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFD6BFBF"/>
                 <GradientStop Color="#FFEA5252" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ComboBox x:Name="multiplicationByNumberFormRows" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150, 30, 0, 0" Width="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
-            <ComboBoxItem Content="1" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="2" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="3" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="4" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="5" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="6" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="7" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="8" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="9" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-            
-            <ComboBoxItem Content="10" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            </ComboBoxItem>
-        </ComboBox>
- 
-        <ComboBox x:Name="multiplicationByNumberFormColumns" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="260, 30, 0, 0" Width="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
+        <ComboBox x:Name="multiplicationByNumberFormRows" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,30,0,0" Width="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
             <ComboBoxItem Content="1" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             </ComboBoxItem>
 
@@ -76,8 +44,145 @@
             <ComboBoxItem Content="10" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             </ComboBoxItem>
         </ComboBox>
-        <Label Content="Матрица:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50, 30, 0, 0"  FontFamily="Consolas" FontSize="14"/>
-        <Label Content="X" HorizontalAlignment="Left" Margin="220,30,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" FontFamily="Consolas" FontSize="14" Width="20"/>
-        <Button x:Name="multiplicationByNumberFormButtonCreate" Content="Создать" Margin="350,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="multiplicationByNumberFormButtonCreate_Click"/>
+
+        <ComboBox x:Name="multiplicationByNumberFormColumns" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="214,30,0,0" Width="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
+            <ComboBoxItem Content="1" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="2" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="3" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="4" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="5" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="6" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="7" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="8" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="9" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="10" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+        </ComboBox>
+        <Label Content="X" HorizontalAlignment="Left" Margin="184,30,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" FontFamily="Consolas" FontSize="14" Width="20"/>
+        <Button x:Name="multiplicationByNumberFormButtonCreate" Content="Создать" Margin="294,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="multiplicationByNumberFormButtonCreate_Click"/>
+
+        <ComboBox IsEnabled="False" x:Name="multiplicationByNumberFormInitialMatrixColor" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="474,30,0,0" Width="90" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
+            <ComboBoxItem Content="Зеленый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Красный" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Синий" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Белый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Оранжевый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Желтый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Розовый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Фиолетовый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Серебряный" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Золотой" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+        </ComboBox>
+
+        <ComboBox IsEnabled="False" x:Name="multiplicationByNumberFormNumberColor" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="634,30,0,0" Width="90" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
+            <ComboBoxItem Content="Зеленый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Красный" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Синий" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Белый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Оранжевый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Желтый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Розовый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Фиолетовый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Серебряный" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Золотой" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+        </ComboBox>
+
+        <ComboBox IsEnabled="False" x:Name="multiplicationByNumberFormFinalMatrixColor" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="794,30,0,0" Width="90" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
+            <ComboBoxItem Content="Зеленый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Красный" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Синий" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Белый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Оранжевый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Желтый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Розовый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Фиолетовый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Серебряный" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Золотой" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </ComboBoxItem>
+        </ComboBox>
+        <Label Content="Размеры матрицы" HorizontalAlignment="Left" Margin="148,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
+        <Label Content="Подсветка начальной матрицы" HorizontalAlignment="Left" Margin="440,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
+        <Label Content="Подсветка числа" HorizontalAlignment="Left" Margin="632,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
+        <Label Content="Подсветка конечной матрицы" HorizontalAlignment="Left" Margin="764,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
+        <Label x:Name="multiplicationByNumberFormSpeedLightLabel" Content="1" HorizontalAlignment="Left" Margin="1044,32,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14"/>
+        <Slider IsEnabled="False" x:Name="multiplicationByNumberFormSpeedLight" HorizontalAlignment="Left" Margin="939,38,0,0" VerticalAlignment="Top" Width="100" Height="18" Minimum="1" Maximum="5" TickFrequency="5" ValueChanged="multiplicationOnNumberFormSpeedLight_ValueChanged"/>
+        <Label Content="Скорость подсветки(сек)" HorizontalAlignment="Left" Margin="932,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
+        <Button IsEnabled="False" x:Name="multiplicationByNumberFormButtonCalculate" Content="Посчитать" Margin="1110,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="multiplicationByNumberFormButtonCalculate_Click"/>
+        <Button x:Name="multiplicationByNumberFormButtonBack" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="&#129044;" Margin="60,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="18" Background="#FFC1FFE5" BorderThickness="2" Click="multiplicationByNumberFormButtonBack_Click"/>
+
     </Grid>
 </Window>

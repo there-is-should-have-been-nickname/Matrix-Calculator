@@ -22,27 +22,16 @@ namespace Matrix_Calculator
         /// <summary>
         /// Parameters for window
         /// </summary>
-        
-        //private int widthWindow = 0;
-        //private int heightWindow = 0;
-        private int offsetXoperator = 0;
-        private int offsetYoperator = 0;
-        private int offsetXNumberTextBox = 0;
-        private int offsetYNumberTextBox = 0;
-        private int offsetXEqual = 0;
-        private int offsetYEqual = 0;
-        
+                
         private Grid innerGrid;
 
         private TextBox[,] initialMatrixTextBox;
 
         private TextBox[,] finalMatrixTextBox;
 
-        private Button buttonCalculate;
-
         private TextBox numberTextBox;
 
-        System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
+        private System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
         /// <summary>
         /// Parameters for calculation
         /// </summary>
@@ -54,13 +43,18 @@ namespace Matrix_Calculator
 
         private Matrix finalMatrix;
 
+        private Assistant assistant = new Assistant(1);
+
         public MultiplicationByNumberWindow()
         {
             InitializeComponent();
+            
         }
 
         private void multiplicationByNumberFormButtonCreate_Click(object sender, RoutedEventArgs e)
         {
+            enableColorsAndSpeed();
+
             if (canParseRowsAndColumns())
             {
                 parseRowsAndColumns();
@@ -70,20 +64,19 @@ namespace Matrix_Calculator
                 creationAndInsertionOperatorLabel();
                 creationAndInsertionNumberTextBox();
                 creationAndInsertionEqualLabel();
-                creationAndInsertionButtonCalculate();
-                
-            } else
+            }
+            else
             {
                 MessageBox.Show("Вы не выбрали число столбцов или строк. Пожалуйста, выберите одно из значений и попробуйте снова");
             }
             
         }
 
-        private void buttonCalculate_Click(object sender, RoutedEventArgs e)
+        private void multiplicationByNumberFormButtonCalculate_Click(object sender, RoutedEventArgs e)
         {
             clearInitialMatrixTextBox();
             
-            if (canParseInitialMatrixTextBox() && canParseNumberTextBox())
+            if (canParseInitialMatrixTextBox() && canParseNumberTextBox() && canDefineColors())
             {
                 initialMatrix = getInitialMatrix();
                 number = Convert.ToInt32(numberTextBox.Text);
@@ -93,8 +86,17 @@ namespace Matrix_Calculator
                 activateTimer();
             } else
             {
-                MessageBox.Show("Число или один (или более) элементов матрицы не являются числом. Пожалуйста, исправьте это и попробуйте снова");
+                MessageBox.Show("Число или один (или более) элементов матрицы не являются числом. Возможно, что вы не указали цвета, которыми будут подсвечиваться элементы. Пожалуйста, исправьте это и попробуйте снова");
             }
+        }
+
+        private void enableColorsAndSpeed()
+        {
+            multiplicationByNumberFormInitialMatrixColor.IsEnabled = true;
+            multiplicationByNumberFormNumberColor.IsEnabled = true;
+            multiplicationByNumberFormFinalMatrixColor.IsEnabled = true;
+            multiplicationByNumberFormSpeedLight.IsEnabled = true;
+            multiplicationByNumberFormButtonCalculate.IsEnabled = true;
         }
 
         private bool canParseRowsAndColumns()
@@ -118,7 +120,6 @@ namespace Matrix_Calculator
         private void setHeightWindow()
         {
             Height = 90 + rows * 40 + 20 * 2 + (rows - 1) * 10 + 90;
-            
         }
 
         private void creationAndInsertionInnerGrid()
@@ -239,30 +240,6 @@ namespace Matrix_Calculator
             innerGrid.Children.Add(operatorEqual);
         }
 
-        private void creationAndInsertionButtonCalculate()
-        {
-            var brushConverter = new BrushConverter();
-           
-            buttonCalculate = new Button();
-            buttonCalculate.FontFamily = new FontFamily("Consolas");
-            buttonCalculate.FontSize = 14;
-            buttonCalculate.Content = "Посчитать";
-            buttonCalculate.Width = 120;
-            buttonCalculate.Height = 30;
-            buttonCalculate.BorderBrush = (Brush)brushConverter.ConvertFrom("#FF2B16B4");
-            buttonCalculate.BorderThickness = new Thickness(2, 2, 2, 2);
-            buttonCalculate.HorizontalAlignment = HorizontalAlignment.Left;
-            buttonCalculate.VerticalAlignment = VerticalAlignment.Top;
-
-            buttonCalculate.Background = (Brush)brushConverter.ConvertFrom("#FFABB2AF");
-
-            buttonCalculate.HorizontalContentAlignment = HorizontalAlignment.Center;
-            buttonCalculate.VerticalContentAlignment = VerticalAlignment.Center;
-            buttonCalculate.Margin = new Thickness(500, 30, 0, 0);
-            buttonCalculate.Click += buttonCalculate_Click;
-            multiplicationByNumberFormGrid.Children.Add(buttonCalculate);
-        }
-
         private void creationAndInsertionFinalMatrix()
         {
             finalMatrixTextBox = new TextBox[rows, columns];
@@ -272,7 +249,6 @@ namespace Matrix_Calculator
                 for (int p = 0; p < columns; ++p)
                 {
                     var elemTextBox = new TextBox();
-                    //
                     elemTextBox.FontFamily = new FontFamily("Consolas");
                     elemTextBox.FontSize = 18;
                     elemTextBox.Width = 40;
@@ -322,6 +298,17 @@ namespace Matrix_Calculator
             return true;
         }
 
+        private bool canDefineColors()
+        {
+            if (!string.IsNullOrWhiteSpace(multiplicationByNumberFormInitialMatrixColor.Text) 
+                && !string.IsNullOrWhiteSpace(multiplicationByNumberFormNumberColor.Text)
+                && !string.IsNullOrWhiteSpace(multiplicationByNumberFormFinalMatrixColor.Text))
+            {
+                return true;
+            }
+            return false;
+        }
+
         private Matrix getInitialMatrix()
         {
             int[,] initialMatrixMas = new int[rows, columns];
@@ -341,8 +328,19 @@ namespace Matrix_Calculator
         private void activateTimer()
         {
             timer.Tick += timerTick;
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+
+            var interval = Convert.ToInt32(multiplicationByNumberFormSpeedLightLabel.Content);
+            timer.Interval = new TimeSpan(0, 0, interval);
             timer.Start();
+
+            manageButtons(false);
+        }
+
+        private void manageButtons(bool state)
+        {
+            multiplicationByNumberFormButtonCreate.IsEnabled = state;
+            multiplicationByNumberFormButtonCalculate.IsEnabled = state;
+            multiplicationByNumberFormButtonBack.IsEnabled = state;
         }
 
         private void timerTick(object sender, EventArgs e)
@@ -353,14 +351,45 @@ namespace Matrix_Calculator
                 initialMatrixTextBox[rows - 1, columns - 1].Background = Brushes.Gray;
                 finalMatrixTextBox[rows - 1, columns - 1].Background = Brushes.Gray;
                 numberTextBox.Background = Brushes.Gray;
-                timer.Stop();
                 timer.Tick -= timerTick;
+                timer.Stop();
+
+                manageButtons(true);
             }
             else
             {
                 fillNextTextBox();
             }
 
+        }
+
+        private SolidColorBrush getColor(ComboBox comboBox)
+        {
+            switch (comboBox.Text)
+            {
+                case "Зеленый": 
+                    return Brushes.Green;
+                case "Красный":
+                    return Brushes.Red;
+                case "Синий":
+                    return Brushes.Blue;
+                case "Белый":
+                    return Brushes.White;
+                case "Оранжевый":
+                    return Brushes.Orange;
+                case "Желтый":
+                    return Brushes.Yellow;
+                case "Розовый":
+                    return Brushes.Pink;
+                case "Фиолетовый":
+                    return Brushes.Purple;
+                case "Серебряный":
+                    return Brushes.Silver;
+                case "Золотой":
+                    return Brushes.Gold;
+                default:
+                    return Brushes.Gray;
+            }
         }
 
         private void fillNextTextBox()
@@ -371,9 +400,10 @@ namespace Matrix_Calculator
                 {
                     if (Convert.ToInt32(initialMatrixTextBox[i, p].Tag) == 0)
                     {
-                        initialMatrixTextBox[i, p].Background = Brushes.Green;
-                        finalMatrixTextBox[i, p].Background = Brushes.Aqua;
-                        numberTextBox.Background = Brushes.Coral;
+                        initialMatrixTextBox[i, p].Background = getColor(multiplicationByNumberFormInitialMatrixColor);
+                        numberTextBox.Background = getColor(multiplicationByNumberFormNumberColor);
+                        finalMatrixTextBox[i, p].Background = getColor(multiplicationByNumberFormFinalMatrixColor);
+                        
                         finalMatrixTextBox[i, p].Text = finalMatrix.nums[i, p].ToString();
                         initialMatrixTextBox[i, p].Tag = 1;
                         return;
@@ -403,6 +433,16 @@ namespace Matrix_Calculator
             return true;
         }
 
-        
+        private void multiplicationOnNumberFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            multiplicationByNumberFormSpeedLightLabel.Content = Math.Round(multiplicationByNumberFormSpeedLight.Value);
+        }
+
+        private void multiplicationByNumberFormButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            var actions = new ActionsWindow();
+            actions.Show();
+            Close();
+        }
     }
 }
