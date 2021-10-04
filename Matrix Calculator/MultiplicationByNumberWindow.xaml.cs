@@ -19,51 +19,39 @@ namespace Matrix_Calculator
     /// </summary>
     public partial class MultiplicationByNumberWindow : Window
     {
-        /// <summary>
-        /// Parameters for window
-        /// </summary>
-                
-        private Grid innerGrid;
-
-        private TextBox[,] initialMatrixTextBox;
-
-        private TextBox[,] finalMatrixTextBox;
-
-        private TextBox numberTextBox;
-
-        private System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
-        /// <summary>
-        /// Parameters for calculation
-        /// </summary>
-        private int rows { get; set; }
-        private int columns { get; set; }
-        private int number { get; set; }
-
-        private Matrix initialMatrix;
-
-        private Matrix finalMatrix;
-
-        private Assistant assistant = new Assistant(1);
+        private Assistant assistant;
 
         public MultiplicationByNumberWindow()
         {
             InitializeComponent();
-            
+            assistant = new Assistant(1, multiplicationByNumberFormButtonCreate,
+                multiplicationByNumberFormButtonCalculate,
+                multiplicationByNumberFormButtonBack, multiplicationByNumberFormInitialMatrixColor,
+                multiplicationByNumberFormNumberColor, multiplicationByNumberFormFinalMatrixColor);   
         }
+
+        
 
         private void multiplicationByNumberFormButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            enableColorsAndSpeed();
-
-            if (canParseRowsAndColumns())
+            
+            if (assistant.canParseRowsAndColumns(multiplicationByNumberFormRows, 
+                multiplicationByNumberFormColumns))
             {
-                parseRowsAndColumns();
-                setHeightWindow();
-                creationAndInsertionInnerGrid();
-                creationAndInsertionInitialMatrixTextBox();
-                creationAndInsertionOperatorLabel();
-                creationAndInsertionNumberTextBox();
-                creationAndInsertionEqualLabel();
+                assistant.enableColorsAndSpeed(multiplicationByNumberFormInitialMatrixColor,
+                multiplicationByNumberFormNumberColor,
+                multiplicationByNumberFormFinalMatrixColor,
+                multiplicationByNumberFormSpeedLight,
+                multiplicationByNumberFormButtonCalculate);
+
+                assistant.parseRowsAndColumns(multiplicationByNumberFormRows,
+                    multiplicationByNumberFormColumns);
+                assistant.setHeightWindow(this);
+                assistant.creationAndInsertionInnerGrid(multiplicationByNumberFormGrid, this);
+                assistant.creationAndInsertionInitialMatrixTextBox();
+                assistant.creationAndInsertionOperatorLabel();
+                assistant.creationAndInsertionNumberTextBox();
+                assistant.creationAndInsertionEqualLabel();
             }
             else
             {
@@ -74,366 +62,30 @@ namespace Matrix_Calculator
 
         private void multiplicationByNumberFormButtonCalculate_Click(object sender, RoutedEventArgs e)
         {
-            clearInitialMatrixTextBox();
+            assistant.clearInitialMatrixTextBox();
             
-            if (canParseInitialMatrixTextBox() && canParseNumberTextBox() && canDefineColors())
+            if (assistant.canParseInitialMatrixTextBox() 
+                && assistant.canParseNumberTextBox() 
+                && assistant.canDefineColors(multiplicationByNumberFormInitialMatrixColor,
+                    multiplicationByNumberFormNumberColor,
+                    multiplicationByNumberFormFinalMatrixColor))
             {
-                initialMatrix = getInitialMatrix();
-                number = Convert.ToInt32(numberTextBox.Text);
+                assistant.initialMatrix = assistant.getInitialMatrix();
+                assistant.number = Convert.ToInt32(assistant.numberTextBox.Text);
 
-                finalMatrix = initialMatrix.multiplicationOnNumber(number);
-                creationAndInsertionFinalMatrix();
-                activateTimer();
+                assistant.finalMatrix = assistant.initialMatrix.multiplicationOnNumber(assistant.number);
+                assistant.creationAndInsertionFinalMatrix();
+                assistant.activateTimer(multiplicationByNumberFormButtonCreate, 
+                    multiplicationByNumberFormButtonCalculate,
+                    multiplicationByNumberFormButtonBack,
+                    multiplicationByNumberFormSpeedLightLabel);
             } else
             {
                 MessageBox.Show("Число или один (или более) элементов матрицы не являются числом. Возможно, что вы не указали цвета, которыми будут подсвечиваться элементы. Пожалуйста, исправьте это и попробуйте снова");
             }
         }
 
-        private void enableColorsAndSpeed()
-        {
-            multiplicationByNumberFormInitialMatrixColor.IsEnabled = true;
-            multiplicationByNumberFormNumberColor.IsEnabled = true;
-            multiplicationByNumberFormFinalMatrixColor.IsEnabled = true;
-            multiplicationByNumberFormSpeedLight.IsEnabled = true;
-            multiplicationByNumberFormButtonCalculate.IsEnabled = true;
-        }
-
-        private bool canParseRowsAndColumns()
-        {
-            bool isParsedRows = int.TryParse(multiplicationByNumberFormRows.Text, out int value);
-            bool isParsedColumns = int.TryParse(multiplicationByNumberFormColumns.Text, out int value2);
-
-            if (isParsedRows && isParsedColumns)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private void parseRowsAndColumns()
-        {
-            rows = Convert.ToInt32(multiplicationByNumberFormRows.Text);
-            columns = Convert.ToInt32(multiplicationByNumberFormColumns.Text);
-        }
-
-        private void setHeightWindow()
-        {
-            Height = 90 + rows * 40 + 20 * 2 + (rows - 1) * 10 + 90;
-        }
-
-        private void creationAndInsertionInnerGrid()
-        {
-            if (multiplicationByNumberFormGrid.Children.Contains(innerGrid))
-            {
-                multiplicationByNumberFormGrid.Children.Remove(innerGrid);
-            }
-
-            innerGrid = new Grid();
-            innerGrid.Name = "innerGrid";
-            innerGrid.HorizontalAlignment = HorizontalAlignment.Left;
-            innerGrid.VerticalAlignment = VerticalAlignment.Top;
-            innerGrid.Margin = new Thickness(50, 90, 0, 0);
-            innerGrid.Width = Width - 50 - 50;
-            innerGrid.Height = Height - 90 - 90;
-            
-            //TODO: delete background
-            innerGrid.Background = Brushes.Gray;
-            multiplicationByNumberFormGrid.Children.Add(innerGrid);
-        }
-
-        private void clearInitialMatrixTextBox()
-        {
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int p = 0; p < columns; ++p)
-                {
-                    initialMatrixTextBox[i, p].Background = Brushes.Gray;
-                    initialMatrixTextBox[i, p].Tag = 0;
-                }
-            }
-        }
-
-        private void creationAndInsertionInitialMatrixTextBox()
-        {
-            initialMatrixTextBox = new TextBox[rows, columns];
-
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int p = 0; p < columns; ++p)
-                {
-                    var elemTextBox = new TextBox();
-                    //
-                    elemTextBox.FontFamily = new FontFamily("Consolas");
-                    elemTextBox.FontSize = 18;
-                    elemTextBox.Width = 40;
-                    elemTextBox.Height = 40;
-                    elemTextBox.Text = "";
-                    elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-                    elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
-
-                    elemTextBox.VerticalAlignment = VerticalAlignment.Top;
-                    elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
-                    elemTextBox.Margin = new Thickness(20 + p * 50, 20 + i * 50, 0, 0);
-                    initialMatrixTextBox[i, p] = elemTextBox;
-                    
-                    innerGrid.Children.Add(elemTextBox);
-                }
-            }
-            clearInitialMatrixTextBox();
-        }
-
-        private void creationAndInsertionOperatorLabel()
-        {
-            var operatorLabel = new Label();
-            operatorLabel.FontFamily = new FontFamily("Consolas");
-            operatorLabel.FontSize = 14;
-
-            operatorLabel.Width = 40;
-            operatorLabel.Height = 40;
-            operatorLabel.Content = "*";
-            operatorLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
-            operatorLabel.VerticalContentAlignment = VerticalAlignment.Center;
-
-
-            operatorLabel.VerticalAlignment = VerticalAlignment.Top;
-            operatorLabel.HorizontalAlignment = HorizontalAlignment.Left;
-            operatorLabel.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 10, innerGrid.Height / 2 - 20, 0, 0);
-            innerGrid.Children.Add(operatorLabel);
-        }
-
-        private void creationAndInsertionNumberTextBox()
-        {
-            numberTextBox = new TextBox();
-            numberTextBox.FontFamily = new FontFamily("Consolas");
-            numberTextBox.FontSize = 18;
-            numberTextBox.Width = 40;
-            numberTextBox.Height = 40;
-            numberTextBox.Text = "";
-            numberTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-            numberTextBox.VerticalContentAlignment = VerticalAlignment.Center;
-
-            numberTextBox.Background = Brushes.Gray;
-
-            numberTextBox.VerticalAlignment = VerticalAlignment.Top;
-            numberTextBox.HorizontalAlignment = HorizontalAlignment.Left;
-            numberTextBox.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 60, innerGrid.Height / 2 - 20, 0, 0);
-            innerGrid.Children.Add(numberTextBox);
-
-        }
-        private void creationAndInsertionEqualLabel()
-        {
-            var operatorEqual = new Label();
-            operatorEqual.FontFamily = new FontFamily("Consolas");
-            operatorEqual.FontSize = 14;
-
-            operatorEqual.Width = 40;
-            operatorEqual.Height = 40;
-            operatorEqual.Content = "=";
-            operatorEqual.HorizontalContentAlignment = HorizontalAlignment.Center;
-            operatorEqual.VerticalContentAlignment = VerticalAlignment.Center;
-
-
-            operatorEqual.VerticalAlignment = VerticalAlignment.Top;
-            operatorEqual.HorizontalAlignment = HorizontalAlignment.Left;
-            operatorEqual.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 110, innerGrid.Height / 2 - 20, 0, 0);
-            innerGrid.Children.Add(operatorEqual);
-        }
-
-        private void creationAndInsertionFinalMatrix()
-        {
-            finalMatrixTextBox = new TextBox[rows, columns];
-
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int p = 0; p < columns; ++p)
-                {
-                    var elemTextBox = new TextBox();
-                    elemTextBox.FontFamily = new FontFamily("Consolas");
-                    elemTextBox.FontSize = 18;
-                    elemTextBox.Width = 40;
-                    elemTextBox.Height = 40;
-                    elemTextBox.Text = "";
-                    elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-                    elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
-                    elemTextBox.Background = Brushes.Gray;
-
-                    elemTextBox.VerticalAlignment = VerticalAlignment.Top;
-                    elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
-                    elemTextBox.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 150 + 10 + p * 50, 20 + i * 50, 0, 0);
-                    finalMatrixTextBox[i, p] = elemTextBox;
-
-                    innerGrid.Children.Add(elemTextBox);
-                }
-            }
-        }
-
-        private bool canParseInitialMatrixTextBox()
-        {
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int p = 0; p < columns; ++p)
-                {
-                    bool isParsed = int.TryParse(initialMatrixTextBox[i,p].Text, out int value);
-
-                    if (!isParsed)
-                    {
-                        return false;
-                    }
-                }
-
-            }
-
-            return true;
-        }
-
-        private bool canParseNumberTextBox()
-        {
-            bool isParsed = int.TryParse(numberTextBox.Text, out int value);
-
-            if (!isParsed)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private bool canDefineColors()
-        {
-            if (!string.IsNullOrWhiteSpace(multiplicationByNumberFormInitialMatrixColor.Text) 
-                && !string.IsNullOrWhiteSpace(multiplicationByNumberFormNumberColor.Text)
-                && !string.IsNullOrWhiteSpace(multiplicationByNumberFormFinalMatrixColor.Text))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private Matrix getInitialMatrix()
-        {
-            int[,] initialMatrixMas = new int[rows, columns];
-
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int p = 0; p < columns; ++p)
-                {
-                    int elem = Convert.ToInt32(initialMatrixTextBox[i, p].Text);
-                    initialMatrixMas[i, p] = elem;
-                }
-            }
-
-            return new Matrix(rows, columns, initialMatrixMas);
-        }
-
-        private void activateTimer()
-        {
-            timer.Tick += timerTick;
-
-            var interval = Convert.ToInt32(multiplicationByNumberFormSpeedLightLabel.Content);
-            timer.Interval = new TimeSpan(0, 0, interval);
-            timer.Start();
-
-            manageButtons(false);
-        }
-
-        private void manageButtons(bool state)
-        {
-            multiplicationByNumberFormButtonCreate.IsEnabled = state;
-            multiplicationByNumberFormButtonCalculate.IsEnabled = state;
-            multiplicationByNumberFormButtonBack.IsEnabled = state;
-        }
-
-        private void timerTick(object sender, EventArgs e)
-        {
-
-            if (isAllMatrixCalculated())
-            {
-                initialMatrixTextBox[rows - 1, columns - 1].Background = Brushes.Gray;
-                finalMatrixTextBox[rows - 1, columns - 1].Background = Brushes.Gray;
-                numberTextBox.Background = Brushes.Gray;
-                timer.Tick -= timerTick;
-                timer.Stop();
-
-                manageButtons(true);
-            }
-            else
-            {
-                fillNextTextBox();
-            }
-
-        }
-
-        private SolidColorBrush getColor(ComboBox comboBox)
-        {
-            switch (comboBox.Text)
-            {
-                case "Зеленый": 
-                    return Brushes.Green;
-                case "Красный":
-                    return Brushes.Red;
-                case "Синий":
-                    return Brushes.Blue;
-                case "Белый":
-                    return Brushes.White;
-                case "Оранжевый":
-                    return Brushes.Orange;
-                case "Желтый":
-                    return Brushes.Yellow;
-                case "Розовый":
-                    return Brushes.Pink;
-                case "Фиолетовый":
-                    return Brushes.Purple;
-                case "Серебряный":
-                    return Brushes.Silver;
-                case "Золотой":
-                    return Brushes.Gold;
-                default:
-                    return Brushes.Gray;
-            }
-        }
-
-        private void fillNextTextBox()
-        {
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int p = 0; p < columns; ++p)
-                {
-                    if (Convert.ToInt32(initialMatrixTextBox[i, p].Tag) == 0)
-                    {
-                        initialMatrixTextBox[i, p].Background = getColor(multiplicationByNumberFormInitialMatrixColor);
-                        numberTextBox.Background = getColor(multiplicationByNumberFormNumberColor);
-                        finalMatrixTextBox[i, p].Background = getColor(multiplicationByNumberFormFinalMatrixColor);
-                        
-                        finalMatrixTextBox[i, p].Text = finalMatrix.nums[i, p].ToString();
-                        initialMatrixTextBox[i, p].Tag = 1;
-                        return;
-                    }
-                    initialMatrixTextBox[i, p].Background = Brushes.Gray;
-                    finalMatrixTextBox[i, p].Background = Brushes.Gray;
-
-                }
-
-            }
-        }
-
-        private bool isAllMatrixCalculated()
-        {
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int p = 0; p < columns; ++p)
-                {
-                    if (Convert.ToInt32(initialMatrixTextBox[i,p].Tag) == 0)
-                    {
-                        return false;
-                    }
-                }
-
-            }
-
-            return true;
-        }
-
-        private void multiplicationOnNumberFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void multiplicationByNumberFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             multiplicationByNumberFormSpeedLightLabel.Content = Math.Round(multiplicationByNumberFormSpeedLight.Value);
         }
