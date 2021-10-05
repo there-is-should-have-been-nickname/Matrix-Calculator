@@ -26,6 +26,7 @@ namespace Matrix_Calculator
         public TextBox[,] finalMatrixTextBox;
 
         public TextBox numberTextBox;
+        public TextBox determinantTextBox;
 
         public System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
 
@@ -50,6 +51,7 @@ namespace Matrix_Calculator
         public int rows2 { get; set; }
         public int columns2 { get; set; }
         public int number { get; set; }
+        public int determinant { get; set; }
 
         public Matrix initialMatrix;
         public Matrix initialMatrix1;
@@ -81,6 +83,16 @@ namespace Matrix_Calculator
             
             this.finalMatrixColor = finalMatrixColor;
         }
+        public Assistant(int formNumber, Button buttonCreate, Button buttonCalculate,
+            Button buttonBack, ComboBox initialMatrixColor)
+        {
+            this.formNumber = formNumber;
+            this.buttonCreate = buttonCreate;
+            this.buttonCalculate = buttonCalculate;
+            this.buttonBack = buttonBack;
+            this.initialMatrixColor = initialMatrixColor;
+            
+        }
 
 
         public void enableColorsAndSpeed(ComboBox initialMatrixColor, 
@@ -90,6 +102,14 @@ namespace Matrix_Calculator
             initialMatrixColor.IsEnabled = true;
             numberColor.IsEnabled = true;
             finalMatrixColor.IsEnabled = true;
+            speedLight.IsEnabled = true;
+            buttonCalculate.IsEnabled = true;
+        }
+
+        public void enableColorsAndSpeed(ComboBox initialMatrixColor, Slider speedLight,
+            Button buttonCalculate)
+        {
+            initialMatrixColor.IsEnabled = true;
             speedLight.IsEnabled = true;
             buttonCalculate.IsEnabled = true;
         }
@@ -130,6 +150,17 @@ namespace Matrix_Calculator
             return true;
         }
 
+        public bool canParseOrder(ComboBox order)
+        {
+            bool isParsedOrder = int.TryParse(order.Text, out int value);
+
+            if (isParsedOrder)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void parseRowsAndColumns(ComboBox rows, ComboBox columns)
         {
             this.rows = Convert.ToInt32(rows.Text);
@@ -145,6 +176,12 @@ namespace Matrix_Calculator
             this.columns2 = Convert.ToInt32(columns2.Text);
         }
 
+        public void parseOrder(ComboBox order)
+        {
+            rows = Convert.ToInt32(order.Text);
+            columns = rows;
+        }
+
         public bool isSuitableSizes()
         {
             if (columns1 == rows2)
@@ -156,7 +193,7 @@ namespace Matrix_Calculator
 
         public void setHeightWindow(Window window)
         {
-            if (formNumber == 1)
+            if (formNumber == 1 || formNumber == 4)
             {
                 window.Height = 90 + rows * 40 + 20 * 2 + (rows - 1) * 10 + 90;
             } else if (formNumber == 2)
@@ -182,7 +219,7 @@ namespace Matrix_Calculator
             innerGrid.VerticalAlignment = VerticalAlignment.Top;
             innerGrid.Width = window.Width - 50 - 50;
 
-            if (formNumber == 1)
+            if (formNumber == 1 || formNumber == 4)
             {
                 innerGrid.Margin = new Thickness(50, 90, 0, 0);
                 innerGrid.Height = window.Height - 90 - 90;
@@ -290,6 +327,26 @@ namespace Matrix_Calculator
                 }
             }
             clearInitialMatrixTextBox();
+        }
+
+        public void creationAndInsertionDeterminantTextBox()
+        {
+            determinantTextBox = new TextBox();
+            determinantTextBox.FontFamily = new FontFamily("Consolas");
+            determinantTextBox.FontSize = 18;
+            determinantTextBox.Width = 40;
+            determinantTextBox.Height = 40;
+            determinantTextBox.Text = "";
+            determinantTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+            determinantTextBox.VerticalContentAlignment = VerticalAlignment.Center;
+
+            determinantTextBox.Background = Brushes.Gray;
+            determinantTextBox.IsReadOnly = true;
+
+            determinantTextBox.VerticalAlignment = VerticalAlignment.Top;
+            determinantTextBox.HorizontalAlignment = HorizontalAlignment.Left;
+            determinantTextBox.Margin = new Thickness(columns * 50 + 100, rows * 50 / 2 - 5, 0, 0);
+            innerGrid.Children.Add(determinantTextBox);
         }
 
         public void creationAndInsertionOperatorLabel()
@@ -606,6 +663,15 @@ namespace Matrix_Calculator
             return false;
         }
 
+        public bool canDefineColors(ComboBox initialMatrixColor)
+        {
+            if (!string.IsNullOrWhiteSpace(initialMatrixColor.Text))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Matrix getInitialMatrix()
         {
             int[,] initialMatrixMas = new int[rows, columns];
@@ -708,6 +774,7 @@ namespace Matrix_Calculator
                         elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
                         elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
                         elemTextBox.Background = Brushes.Gray;
+                        elemTextBox.IsReadOnly = true;
 
                         elemTextBox.VerticalAlignment = VerticalAlignment.Top;
                         elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
@@ -742,6 +809,7 @@ namespace Matrix_Calculator
                         elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
                         elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
                         elemTextBox.Background = Brushes.Gray;
+                        elemTextBox.IsReadOnly = true;
 
                         elemTextBox.VerticalAlignment = VerticalAlignment.Top;
                         elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
@@ -792,6 +860,20 @@ namespace Matrix_Calculator
                     for (int p = 0; p < columns1; ++p)
                     {
                         if (Convert.ToInt32(initialMatrixTextBox1[i, p].Tag) == 0)
+                        {
+                            return false;
+                        }
+                    }
+
+                }
+                return true;
+            } else if (formNumber == 4)
+            {
+                for (int i = 0; i < rows; ++i)
+                {
+                    for (int p = 0; p < columns; ++p)
+                    {
+                        if (Convert.ToInt32(initialMatrixTextBox[i, p].Tag) < 2)
                         {
                             return false;
                         }
@@ -937,6 +1019,165 @@ namespace Matrix_Calculator
             
         }
 
+        public void fillNextTextBox(int order)
+        {
+            var color = getColor(initialMatrixColor);
+            if (order == 1)
+            {
+                initialMatrixTextBox[0, 0].Background = color;
+                initialMatrixTextBox[0, 0].Tag = 2;
+                return;
+            }
+            else if (order == 2)
+            {
+                for (int i = 0; i < rows; ++i)
+                {
+                    if (Convert.ToInt32(initialMatrixTextBox[i, i].Tag) == 0)
+                    {
+                        initialMatrixTextBox[i, i].Background = color;
+                        initialMatrixTextBox[i, i].Tag = 2;
+                        return;
+                    }
+                    initialMatrixTextBox[i, i].Background = Brushes.Gray;
+
+                }
+
+                for (int i = 0; i < rows; ++i)
+                {
+                    if (Convert.ToInt32(initialMatrixTextBox[i, rows - 1 - i].Tag) == 0)
+                    {
+                        initialMatrixTextBox[i, rows - 1 - i].Background = color;
+                        initialMatrixTextBox[i, rows - 1 - i].Tag = 2;
+                        return;
+                    }
+                    initialMatrixTextBox[i, rows - 1 - i].Background = Brushes.Gray;
+
+                }
+            }
+            else if (order == 3)
+            {
+                for (int i = 0; i < rows; ++i)
+                {
+                    if (Convert.ToInt32(initialMatrixTextBox[i, i].Tag) == 0)
+                    {
+                        initialMatrixTextBox[i, i].Background = color;
+                        initialMatrixTextBox[i, i].Tag = 1;
+                        return;
+                    }
+                    initialMatrixTextBox[i, i].Background = Brushes.Gray;
+
+                }
+
+                if (Convert.ToInt32(initialMatrixTextBox[1, 0].Tag) == 0)
+                {
+                    initialMatrixTextBox[1, 0].Background = color;
+                    initialMatrixTextBox[1, 0].Tag = 1;
+                    return;
+                }
+                initialMatrixTextBox[1, 0].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[2, 1].Tag) == 0)
+                {
+                    initialMatrixTextBox[2, 1].Background = color;
+                    initialMatrixTextBox[2, 1].Tag = 1;
+                    return;
+                }
+                initialMatrixTextBox[2, 1].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[0, 2].Tag) == 0)
+                {
+                    initialMatrixTextBox[0, 2].Background = color;
+                    initialMatrixTextBox[0, 2].Tag = 1;
+                    return;
+                }
+                initialMatrixTextBox[0, 2].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[0, 1].Tag) == 0)
+                {
+                    initialMatrixTextBox[0, 1].Background = color;
+                    initialMatrixTextBox[0, 1].Tag = 1;
+                    return;
+                }
+                initialMatrixTextBox[0, 1].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[1, 2].Tag) == 0)
+                {
+                    initialMatrixTextBox[1, 2].Background = color;
+                    initialMatrixTextBox[1, 2].Tag = 1;
+                    return;
+                }
+                initialMatrixTextBox[1, 2].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[2, 0].Tag) == 0)
+                {
+                    initialMatrixTextBox[2, 0].Background = color;
+                    initialMatrixTextBox[2, 0].Tag = 1;
+                    return;
+                }
+                initialMatrixTextBox[2, 0].Background = Brushes.Gray;
+
+                for (int i = 0; i < rows; ++i)
+                {
+                    if (Convert.ToInt32(initialMatrixTextBox[i, rows - 1 - i].Tag) == 1)
+                    {
+                        initialMatrixTextBox[i, rows - 1 - i].Background = color;
+                        initialMatrixTextBox[i, rows - 1 - i].Tag = 2;
+                        return;
+                    }
+                    initialMatrixTextBox[i, rows - 1 - i].Background = Brushes.Gray;
+
+                }
+
+                if (Convert.ToInt32(initialMatrixTextBox[1, 2].Tag) == 1)
+                {
+                    initialMatrixTextBox[1, 2].Background = color;
+                    initialMatrixTextBox[1, 2].Tag = 2;
+                    return;
+                }
+                initialMatrixTextBox[1, 2].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[2, 1].Tag) == 1)
+                {
+                    initialMatrixTextBox[2, 1].Background = color;
+                    initialMatrixTextBox[2, 1].Tag = 2;
+                    return;
+                }
+                initialMatrixTextBox[2, 1].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[0, 0].Tag) == 1)
+                {
+                    initialMatrixTextBox[0, 0].Background = color;
+                    initialMatrixTextBox[0, 0].Tag = 2;
+                    return;
+                }
+                initialMatrixTextBox[0, 0].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[1, 0].Tag) == 1)
+                {
+                    initialMatrixTextBox[1, 0].Background = color;
+                    initialMatrixTextBox[1, 0].Tag = 2;
+                    return;
+                }
+                initialMatrixTextBox[1, 0].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[0, 1].Tag) == 1)
+                {
+                    initialMatrixTextBox[0, 1].Background = color;
+                    initialMatrixTextBox[0, 1].Tag = 2;
+                    return;
+                }
+                initialMatrixTextBox[0, 1].Background = Brushes.Gray;
+
+                if (Convert.ToInt32(initialMatrixTextBox[2, 2].Tag) == 1)
+                {
+                    initialMatrixTextBox[2, 2].Background = color;
+                    initialMatrixTextBox[2, 2].Tag = 2;
+                    return;
+                }
+            }
+
+        }
+
         public void manageButtons(bool state)
         {
             buttonCreate.IsEnabled = state;
@@ -978,6 +1219,10 @@ namespace Matrix_Calculator
                     finalMatrixTextBox[rows1 - 1, columns2 - 1].Background = Brushes.Gray;
                     finalMatrixTextBox[rows1 - 1, columns2 - 1].Text = finalMatrix.nums[rows1 - 1, columns2 - 1].ToString();
 
+                } else if (formNumber == 4)
+                {
+                    initialMatrixTextBox[rows - 1, columns - 1].Background = Brushes.Gray;
+                    determinantTextBox.Text = determinant.ToString();
                 }
 
                 timer.Tick -= timerTick;
@@ -986,7 +1231,14 @@ namespace Matrix_Calculator
             }
             else
             {
-                fillNextTextBox();
+                if (formNumber < 4)
+                {
+                    fillNextTextBox();
+                } else
+                {
+                    fillNextTextBox(rows);
+                }
+                
             }
 
         }
