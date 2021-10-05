@@ -44,6 +44,11 @@ namespace Matrix_Calculator
         /// </summary>
         public int rows { get; set; }
         public int columns { get; set; }
+
+        public int rows1 { get; set; }
+        public int columns1 { get; set; }
+        public int rows2 { get; set; }
+        public int columns2 { get; set; }
         public int number { get; set; }
 
         public Matrix initialMatrix;
@@ -68,7 +73,7 @@ namespace Matrix_Calculator
             {
                 this.initialMatrixColor = initialMatrixColor;
                 this.numberColor = numberColor;
-            } else if (formNumber == 2)
+            } else if (formNumber == 2 || formNumber == 3)
             {
                 initialMatrix1Color = initialMatrixColor;
                 initialMatrix2Color = numberColor;
@@ -101,6 +106,21 @@ namespace Matrix_Calculator
             return false;
         }
 
+        public bool canParseRowsAndColumns(ComboBox rows1, ComboBox columns1, ComboBox rows2,
+            ComboBox columns2)
+        {
+            bool isParsedRows1 = int.TryParse(rows1.Text, out int value1);
+            bool isParsedRows2 = int.TryParse(rows2.Text, out int value2);
+            bool isParsedColumns1 = int.TryParse(columns1.Text, out int value3);
+            bool isParsedColumns2 = int.TryParse(columns2.Text, out int value4);
+
+            if (isParsedRows1 && isParsedColumns1 && isParsedRows2 && isParsedColumns2)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool canParseOperator(ComboBox operatorL)
         {
             if (string.IsNullOrWhiteSpace(operatorL.Text))
@@ -116,6 +136,24 @@ namespace Matrix_Calculator
             this.columns = Convert.ToInt32(columns.Text);
         }
 
+        public void parseRowsAndColumns(ComboBox rows1, ComboBox columns1, ComboBox rows2,
+            ComboBox columns2)
+        {
+            this.rows1 = Convert.ToInt32(rows1.Text);
+            this.columns1 = Convert.ToInt32(columns1.Text);
+            this.rows2 = Convert.ToInt32(rows2.Text);
+            this.columns2 = Convert.ToInt32(columns2.Text);
+        }
+
+        public bool isSuitableSizes()
+        {
+            if (columns1 == rows2)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void setHeightWindow(Window window)
         {
             if (formNumber == 1)
@@ -124,8 +162,11 @@ namespace Matrix_Calculator
             } else if (formNumber == 2)
             {
                 window.Height = 150 + rows * 40 + 20 * 2 + (rows - 1) * 10 + 90;
+            } else if (formNumber == 3)
+            {
+                int biggerRow = (rows1 >= rows2) ? rows1 : rows2;
+                window.Height = 130 + biggerRow * 40 + 20 * 2 + (biggerRow - 1) * 10 + 90;
             }
-            
         }
 
         public void creationAndInsertionInnerGrid(Grid grid, Window window)
@@ -149,6 +190,10 @@ namespace Matrix_Calculator
             {
                 innerGrid.Margin = new Thickness(50, 150, 0, 0);
                 innerGrid.Height = window.Height - 150 - 90;
+            } else if (formNumber == 3)
+            {
+                innerGrid.Margin = new Thickness(50, 130, 0, 0);
+                innerGrid.Height = window.Height - 130 - 90;
             }
 
             //TODO: delete background
@@ -170,26 +215,53 @@ namespace Matrix_Calculator
 
         public void clearInitialMatrixTextBox1()
         {
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
+                for (int i = 0; i < rows; ++i)
                 {
-                    initialMatrixTextBox1[i, p].Background = Brushes.Gray;
-                    initialMatrixTextBox1[i, p].Tag = 0;
+                    for (int p = 0; p < columns; ++p)
+                    {
+                        initialMatrixTextBox1[i, p].Background = Brushes.Gray;
+                        initialMatrixTextBox1[i, p].Tag = 0;
+                    }
+                }
+            } else if (formNumber == 3)
+            {
+                for (int i = 0; i < rows1; ++i)
+                {
+                    for (int p = 0; p < columns1; ++p)
+                    {
+                        initialMatrixTextBox1[i, p].Background = Brushes.Gray;
+                        initialMatrixTextBox1[i, p].Tag = 0;
+                    }
                 }
             }
         }
 
         public void clearInitialMatrixTextBox2()
         {
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
+                for (int i = 0; i < rows; ++i)
                 {
-                    initialMatrixTextBox2[i, p].Background = Brushes.Gray;
-                    initialMatrixTextBox2[i, p].Tag = 0;
+                    for (int p = 0; p < columns; ++p)
+                    {
+                        initialMatrixTextBox2[i, p].Background = Brushes.Gray;
+                        initialMatrixTextBox2[i, p].Tag = 0;
+                    }
+                }
+            } else if (formNumber == 3)
+            {
+                for (int i = 0; i < rows2; ++i)
+                {
+                    for (int p = 0; p < columns2; ++p)
+                    {
+                        initialMatrixTextBox2[i, p].Background = Brushes.Gray;
+                        initialMatrixTextBox2[i, p].Tag = 0;
+                    }
                 }
             }
+            
         }
 
         public void creationAndInsertionInitialMatrixTextBox()
@@ -232,10 +304,16 @@ namespace Matrix_Calculator
             operatorLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
             operatorLabel.VerticalContentAlignment = VerticalAlignment.Center;
 
-
             operatorLabel.VerticalAlignment = VerticalAlignment.Top;
             operatorLabel.HorizontalAlignment = HorizontalAlignment.Left;
-            operatorLabel.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 10, innerGrid.Height / 2 - 20, 0, 0);
+            if (formNumber == 1)
+            {
+                operatorLabel.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 10, innerGrid.Height / 2 - 20, 0, 0);
+            } else if (formNumber == 3)
+            {
+                operatorLabel.Margin = new Thickness(20 + columns1 * 40 + (columns1 - 1) * 10 + 10, innerGrid.Height / 2 - 20, 0, 0);
+            }
+            
             innerGrid.Children.Add(operatorLabel);
         }
 
@@ -250,7 +328,6 @@ namespace Matrix_Calculator
             operatorLabel.Content = operatorL.Text;
             operatorLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
             operatorLabel.VerticalContentAlignment = VerticalAlignment.Center;
-
 
             operatorLabel.VerticalAlignment = VerticalAlignment.Top;
             operatorLabel.HorizontalAlignment = HorizontalAlignment.Left;
@@ -275,62 +352,120 @@ namespace Matrix_Calculator
             numberTextBox.HorizontalAlignment = HorizontalAlignment.Left;
             numberTextBox.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 60, innerGrid.Height / 2 - 20, 0, 0);
             innerGrid.Children.Add(numberTextBox);
-
         }
 
         public void creationAndInsertionInitialMatrixTextBox1()
         {
-            initialMatrixTextBox1 = new TextBox[rows, columns];
-
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
+                initialMatrixTextBox1 = new TextBox[rows, columns];
+
+                for (int i = 0; i < rows; ++i)
                 {
-                    var elemTextBox = new TextBox();
-                    elemTextBox.FontFamily = new FontFamily("Consolas");
-                    elemTextBox.FontSize = 18;
-                    elemTextBox.Width = 40;
-                    elemTextBox.Height = 40;
-                    elemTextBox.Text = "";
-                    elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-                    elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
+                    for (int p = 0; p < columns; ++p)
+                    {
+                        var elemTextBox = new TextBox();
+                        elemTextBox.FontFamily = new FontFamily("Consolas");
+                        elemTextBox.FontSize = 18;
+                        elemTextBox.Width = 40;
+                        elemTextBox.Height = 40;
+                        elemTextBox.Text = "";
+                        elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
 
-                    elemTextBox.VerticalAlignment = VerticalAlignment.Top;
-                    elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
-                    elemTextBox.Margin = new Thickness(20 + p * 50, 20 + i * 50, 0, 0);
-                    initialMatrixTextBox1[i, p] = elemTextBox;
+                        elemTextBox.VerticalAlignment = VerticalAlignment.Top;
+                        elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
+                        elemTextBox.Margin = new Thickness(20 + p * 50, 20 + i * 50, 0, 0);
+                        initialMatrixTextBox1[i, p] = elemTextBox;
 
-                    innerGrid.Children.Add(elemTextBox);
+                        innerGrid.Children.Add(elemTextBox);
+                    }
+                }
+            } else if (formNumber == 3)
+            {
+                initialMatrixTextBox1 = new TextBox[rows1, columns1];
+
+                for (int i = 0; i < rows1; ++i)
+                {
+                    for (int p = 0; p < columns1; ++p)
+                    {
+                        var elemTextBox = new TextBox();
+                        elemTextBox.FontFamily = new FontFamily("Consolas");
+                        elemTextBox.FontSize = 18;
+                        elemTextBox.Width = 40;
+                        elemTextBox.Height = 40;
+                        elemTextBox.Text = "";
+                        elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
+
+                        elemTextBox.VerticalAlignment = VerticalAlignment.Top;
+                        elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
+                        elemTextBox.Margin = new Thickness(20 + p * 50, 20 + i * 50, 0, 0);
+                        initialMatrixTextBox1[i, p] = elemTextBox;
+
+                        innerGrid.Children.Add(elemTextBox);
+                    }
                 }
             }
+
             clearInitialMatrixTextBox1();
+
         }
 
         public void creationAndInsertionInitialMatrixTextBox2()
         {
-            initialMatrixTextBox2 = new TextBox[rows, columns];
-
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
+                initialMatrixTextBox2 = new TextBox[rows, columns];
+
+                for (int i = 0; i < rows; ++i)
                 {
-                    var elemTextBox = new TextBox();
-                    elemTextBox.FontFamily = new FontFamily("Consolas");
-                    elemTextBox.FontSize = 18;
-                    elemTextBox.Width = 40;
-                    elemTextBox.Height = 40;
-                    elemTextBox.Text = "";
-                    elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-                    elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
+                    for (int p = 0; p < columns; ++p)
+                    {
+                        var elemTextBox = new TextBox();
+                        elemTextBox.FontFamily = new FontFamily("Consolas");
+                        elemTextBox.FontSize = 18;
+                        elemTextBox.Width = 40;
+                        elemTextBox.Height = 40;
+                        elemTextBox.Text = "";
+                        elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
 
-                    elemTextBox.VerticalAlignment = VerticalAlignment.Top;
-                    elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
-                    elemTextBox.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 60 + p * 50, 20 + i * 50, 0, 0);
-                    initialMatrixTextBox2[i, p] = elemTextBox;
+                        elemTextBox.VerticalAlignment = VerticalAlignment.Top;
+                        elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
+                        elemTextBox.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 60 + p * 50, 20 + i * 50, 0, 0);
+                        initialMatrixTextBox2[i, p] = elemTextBox;
 
-                    innerGrid.Children.Add(elemTextBox);
+                        innerGrid.Children.Add(elemTextBox);
+                    }
+                }
+            } else if (formNumber == 3)
+            {
+                initialMatrixTextBox2 = new TextBox[rows2, columns2];
+
+                for (int i = 0; i < rows2; ++i)
+                {
+                    for (int p = 0; p < columns2; ++p)
+                    {
+                        var elemTextBox = new TextBox();
+                        elemTextBox.FontFamily = new FontFamily("Consolas");
+                        elemTextBox.FontSize = 18;
+                        elemTextBox.Width = 40;
+                        elemTextBox.Height = 40;
+                        elemTextBox.Text = "";
+                        elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
+
+                        elemTextBox.VerticalAlignment = VerticalAlignment.Top;
+                        elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
+                        elemTextBox.Margin = new Thickness(20 + columns1 * 40 + (columns1 - 1) * 10 + 60 + p * 50, 20 + i * 50, 0, 0);
+                        initialMatrixTextBox2[i, p] = elemTextBox;
+
+                        innerGrid.Children.Add(elemTextBox);
+                    }
                 }
             }
+            
             clearInitialMatrixTextBox2();
         }
         public void creationAndInsertionEqualLabel()
@@ -354,6 +489,9 @@ namespace Matrix_Calculator
             } else if (formNumber == 2)
             {
                 operatorEqual.Margin = new Thickness(20 + columns * 40 * 2 + (columns - 1) * 10 * 2 + 70, innerGrid.Height / 2 - 20, 0, 0);
+            } else if (formNumber == 3)
+            {
+                operatorEqual.Margin = new Thickness(20 + columns1 * 40 + (columns1 - 1) * 10 + 70 + columns2 * 40 + (columns2 - 1) * 10, innerGrid.Height / 2 - 20, 0, 0);
             }
             innerGrid.Children.Add(operatorEqual);
         }
@@ -379,34 +517,69 @@ namespace Matrix_Calculator
 
         public bool canParseInitialMatrixesTextBox()
         {
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
+                for (int i = 0; i < rows; ++i)
                 {
-                    bool isParsed = int.TryParse(initialMatrixTextBox1[i, p].Text, out int value);
-
-                    if (!isParsed)
+                    for (int p = 0; p < columns; ++p)
                     {
-                        return false;
+                        bool isParsed = int.TryParse(initialMatrixTextBox1[i, p].Text, out int value);
+
+                        if (!isParsed)
+                        {
+                            return false;
+                        }
                     }
+
                 }
 
-            }
-
-            for (int i = 0; i < rows; ++i)
-            {
-                for (int p = 0; p < columns; ++p)
+                for (int i = 0; i < rows; ++i)
                 {
-                    bool isParsed = int.TryParse(initialMatrixTextBox2[i, p].Text, out int value);
-
-                    if (!isParsed)
+                    for (int p = 0; p < columns; ++p)
                     {
-                        return false;
+                        bool isParsed = int.TryParse(initialMatrixTextBox2[i, p].Text, out int value);
+
+                        if (!isParsed)
+                        {
+                            return false;
+                        }
                     }
+
                 }
 
-            }
+                return true;
+            } else if (formNumber == 3)
+            {
+                for (int i = 0; i < rows1; ++i)
+                {
+                    for (int p = 0; p < columns1; ++p)
+                    {
+                        bool isParsed = int.TryParse(initialMatrixTextBox1[i, p].Text, out int value);
 
+                        if (!isParsed)
+                        {
+                            return false;
+                        }
+                    }
+
+                }
+
+                for (int i = 0; i < rows2; ++i)
+                {
+                    for (int p = 0; p < columns2; ++p)
+                    {
+                        bool isParsed = int.TryParse(initialMatrixTextBox2[i, p].Text, out int value);
+
+                        if (!isParsed)
+                        {
+                            return false;
+                        }
+                    }
+
+                }
+
+                return true;
+            }
             return true;
         }
 
@@ -450,95 +623,183 @@ namespace Matrix_Calculator
         }
         public Matrix getInitialMatrix1()
         {
-            int[,] initialMatrixMas = new int[rows, columns];
-
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
-                {
-                    int elem = Convert.ToInt32(initialMatrixTextBox1[i, p].Text);
-                    initialMatrixMas[i, p] = elem;
-                }
-            }
+                int[,] initialMatrixMas = new int[rows, columns];
 
-            return new Matrix(rows, columns, initialMatrixMas);
+                for (int i = 0; i < rows; ++i)
+                {
+                    for (int p = 0; p < columns; ++p)
+                    {
+                        int elem = Convert.ToInt32(initialMatrixTextBox1[i, p].Text);
+                        initialMatrixMas[i, p] = elem;
+                    }
+                }
+
+                return new Matrix(rows, columns, initialMatrixMas);
+            } else if (formNumber == 3)
+            {
+                int[,] initialMatrixMas = new int[rows1, columns1];
+
+                for (int i = 0; i < rows1; ++i)
+                {
+                    for (int p = 0; p < columns1; ++p)
+                    {
+                        int elem = Convert.ToInt32(initialMatrixTextBox1[i, p].Text);
+                        initialMatrixMas[i, p] = elem;
+                    }
+                }
+
+                return new Matrix(rows1, columns1, initialMatrixMas);
+            }
+            return null;
         }
 
         public Matrix getInitialMatrix2()
         {
-            int[,] initialMatrixMas = new int[rows, columns];
-
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
-                {
-                    int elem = Convert.ToInt32(initialMatrixTextBox2[i, p].Text);
-                    initialMatrixMas[i, p] = elem;
-                }
-            }
+                int[,] initialMatrixMas = new int[rows, columns];
 
-            return new Matrix(rows, columns, initialMatrixMas);
+                for (int i = 0; i < rows; ++i)
+                {
+                    for (int p = 0; p < columns; ++p)
+                    {
+                        int elem = Convert.ToInt32(initialMatrixTextBox2[i, p].Text);
+                        initialMatrixMas[i, p] = elem;
+                    }
+                }
+
+                return new Matrix(rows, columns, initialMatrixMas);
+            } else if (formNumber == 3)
+            {
+                int[,] initialMatrixMas = new int[rows2, columns2];
+
+                for (int i = 0; i < rows2; ++i)
+                {
+                    for (int p = 0; p < columns2; ++p)
+                    {
+                        int elem = Convert.ToInt32(initialMatrixTextBox2[i, p].Text);
+                        initialMatrixMas[i, p] = elem;
+                    }
+                }
+
+                return new Matrix(rows2, columns2, initialMatrixMas);
+            }
+            return null;
         }
 
         public void creationAndInsertionFinalMatrix()
         {
-            finalMatrixTextBox = new TextBox[rows, columns];
-
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 1 || formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
+                finalMatrixTextBox = new TextBox[rows, columns];
+
+                for (int i = 0; i < rows; ++i)
                 {
-                    var elemTextBox = new TextBox();
-                    elemTextBox.FontFamily = new FontFamily("Consolas");
-                    elemTextBox.FontSize = 18;
-                    elemTextBox.Width = 40;
-                    elemTextBox.Height = 40;
-                    elemTextBox.Text = "";
-                    elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-                    elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
-                    elemTextBox.Background = Brushes.Gray;
+                    for (int p = 0; p < columns; ++p)
+                    {
+                        var elemTextBox = new TextBox();
+                        elemTextBox.FontFamily = new FontFamily("Consolas");
+                        elemTextBox.FontSize = 18;
+                        elemTextBox.Width = 40;
+                        elemTextBox.Height = 40;
+                        elemTextBox.Text = "";
+                        elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
+                        elemTextBox.Background = Brushes.Gray;
 
-                    elemTextBox.VerticalAlignment = VerticalAlignment.Top;
-                    elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
-                    if (formNumber == 1)
-                    {
-                        elemTextBox.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 150 + 10 + p * 50, 20 + i * 50, 0, 0);
-                    } else if (formNumber == 2)
-                    {
-                        elemTextBox.Margin = new Thickness(20 + columns * 40 * 2 + (columns - 1) * 10 * 2 + 70 + 50 + p * 50, 20 + i * 50, 0, 0);
+                        elemTextBox.VerticalAlignment = VerticalAlignment.Top;
+                        elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
+                        if (formNumber == 1)
+                        {
+                            elemTextBox.Margin = new Thickness(20 + columns * 40 + (columns - 1) * 10 + 150 + 10 + p * 50, 20 + i * 50, 0, 0);
+                        }
+                        else if (formNumber == 2)
+                        {
+                            elemTextBox.Margin = new Thickness(20 + columns * 40 * 2 + (columns - 1) * 10 * 2 + 70 + 50 + p * 50, 20 + i * 50, 0, 0);
+                        }
+
+                        finalMatrixTextBox[i, p] = elemTextBox;
+
+                        innerGrid.Children.Add(elemTextBox);
                     }
-                    
-                    finalMatrixTextBox[i, p] = elemTextBox;
+                }
+            } else if (formNumber == 3)
+            {
+                finalMatrixTextBox = new TextBox[rows1, columns2];
 
-                    innerGrid.Children.Add(elemTextBox);
+                for (int i = 0; i < rows1; ++i)
+                {
+                    for (int p = 0; p < columns2; ++p)
+                    {
+                        var elemTextBox = new TextBox();
+                        elemTextBox.FontFamily = new FontFamily("Consolas");
+                        elemTextBox.FontSize = 18;
+                        elemTextBox.Width = 40;
+                        elemTextBox.Height = 40;
+                        elemTextBox.Text = "";
+                        elemTextBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        elemTextBox.VerticalContentAlignment = VerticalAlignment.Center;
+                        elemTextBox.Background = Brushes.Gray;
+
+                        elemTextBox.VerticalAlignment = VerticalAlignment.Top;
+                        elemTextBox.HorizontalAlignment = HorizontalAlignment.Left;
+                        elemTextBox.Margin = new Thickness(20 + columns1 * 40 + (columns1 - 1) * 10 + 70 + columns2 * 40 + (columns2 - 1) * 10 + 50 + p * 50, 20 + i * 50, 0, 0);
+                        
+
+                        finalMatrixTextBox[i, p] = elemTextBox;
+
+                        innerGrid.Children.Add(elemTextBox);
+                    }
                 }
             }
+            
         }
 
         public bool isAllMatrixCalculated()
         {
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 1 || formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
+                for (int i = 0; i < rows; ++i)
                 {
-                    if (formNumber == 1)
+                    for (int p = 0; p < columns; ++p)
                     {
-                        if (Convert.ToInt32(initialMatrixTextBox[i, p].Tag) == 0)
+                        if (formNumber == 1)
                         {
-                            return false;
+                            if (Convert.ToInt32(initialMatrixTextBox[i, p].Tag) == 0)
+                            {
+                                return false;
+                            }
                         }
-                    } else if (formNumber == 2)
+                        else if (formNumber == 2)
+                        {
+                            if (Convert.ToInt32(initialMatrixTextBox1[i, p].Tag) == 0)
+                            {
+                                return false;
+                            }
+                        }
+
+                    }
+
+                }
+
+                return true;
+            } else if (formNumber == 3)
+            {
+                for (int i = 0; i < rows1; ++i)
+                {
+                    for (int p = 0; p < columns1; ++p)
                     {
                         if (Convert.ToInt32(initialMatrixTextBox1[i, p].Tag) == 0)
                         {
                             return false;
                         }
                     }
-                    
+
                 }
-
+                return true;
             }
-
             return true;
         }
 
@@ -571,48 +832,109 @@ namespace Matrix_Calculator
             }
         }
 
+        private bool isNextLine = false;
+
         public void fillNextTextBox()
         {
-            for (int i = 0; i < rows; ++i)
+            if (formNumber == 1 || formNumber == 2)
             {
-                for (int p = 0; p < columns; ++p)
+                for (int i = 0; i < rows; ++i)
                 {
-                    if (formNumber == 1)
+                    for (int p = 0; p < columns; ++p)
                     {
-                        if (Convert.ToInt32(initialMatrixTextBox[i, p].Tag) == 0)
+                        if (formNumber == 1)
                         {
-                            initialMatrixTextBox[i, p].Background = getColor(initialMatrixColor);
-                            numberTextBox.Background = getColor(numberColor);
-                            finalMatrixTextBox[i, p].Background = getColor(finalMatrixColor);
+                            if (Convert.ToInt32(initialMatrixTextBox[i, p].Tag) == 0)
+                            {
+                                initialMatrixTextBox[i, p].Background = getColor(initialMatrixColor);
+                                numberTextBox.Background = getColor(numberColor);
+                                finalMatrixTextBox[i, p].Background = getColor(finalMatrixColor);
 
-                            finalMatrixTextBox[i, p].Text = finalMatrix.nums[i, p].ToString();
-                            initialMatrixTextBox[i, p].Tag = 1;
-                            return;
+                                finalMatrixTextBox[i, p].Text = finalMatrix.nums[i, p].ToString();
+                                initialMatrixTextBox[i, p].Tag = 1;
+                                return;
+                            }
+                            initialMatrixTextBox[i, p].Background = Brushes.Gray;
+                            finalMatrixTextBox[i, p].Background = Brushes.Gray;
                         }
-                        initialMatrixTextBox[i, p].Background = Brushes.Gray;
-                        finalMatrixTextBox[i, p].Background = Brushes.Gray;
-                    } else if (formNumber == 2)
+                        else if (formNumber == 2)
+                        {
+                            if (Convert.ToInt32(initialMatrixTextBox1[i, p].Tag) == 0)
+                            {
+                                initialMatrixTextBox1[i, p].Background = getColor(initialMatrix1Color);
+                                initialMatrixTextBox2[i, p].Background = getColor(initialMatrix2Color);
+                                finalMatrixTextBox[i, p].Background = getColor(finalMatrixColor);
+                                finalMatrixTextBox[i, p].Text = finalMatrix.nums[i, p].ToString();
+                                initialMatrixTextBox1[i, p].Tag = 1;
+                                return;
+                            }
+                            initialMatrixTextBox1[i, p].Background = Brushes.Gray;
+                            initialMatrixTextBox2[i, p].Background = Brushes.Gray;
+                            finalMatrixTextBox[i, p].Background = Brushes.Gray;
+
+
+                        }
+
+
+                    }
+                }
+            } else if (formNumber == 3)
+            {
+                for (int i = 0; i < rows1; ++i)
+                {
+                    if (isNextLine)
                     {
-                        if (Convert.ToInt32(initialMatrixTextBox1[i, p].Tag) == 0)
-                        {
-                            initialMatrixTextBox1[i, p].Background = getColor(initialMatrix1Color);
-                            initialMatrixTextBox2[i, p].Background = getColor(initialMatrix2Color);
-                            finalMatrixTextBox[i, p].Background = getColor(finalMatrixColor);
-                            finalMatrixTextBox[i, p].Text = finalMatrix.nums[i, p].ToString();
-                            initialMatrixTextBox1[i, p].Tag = 1;
-                            return;
-                        }
-                        initialMatrixTextBox1[i, p].Background = Brushes.Gray;
-                        initialMatrixTextBox2[i, p].Background = Brushes.Gray;
-                        finalMatrixTextBox[i, p].Background = Brushes.Gray;
-
-                        
+                        clearInitialMatrixTextBox2();
+                        isNextLine = false;
                     }
 
+                    for (int p = 0; p < columns2; ++p)
+                    {
+                        for (int k = 0; k < columns1; ++k)
+                        {
+                            if (Convert.ToInt32(initialMatrixTextBox1[i, k].Tag) == 0 && Convert.ToInt32(initialMatrixTextBox2[k, p].Tag) == 0)
+                            {
+
+
+                                initialMatrixTextBox1[i, k].Background = getColor(initialMatrix1Color);
+                                initialMatrixTextBox2[k, p].Background = getColor(initialMatrix2Color);
+
+                                if (p == columns2 - 1)
+                                {
+                                    initialMatrixTextBox1[i, k].Tag = 1;
+                                    if (k == columns1 - 1)
+                                    {
+                                        isNextLine = true;
+                                    }
+                                }
+
+
+                                initialMatrixTextBox2[k, p].Tag = 1;
+                                return;
+                            }
+                            initialMatrixTextBox1[i, k].Background = Brushes.Gray;
+                            initialMatrixTextBox2[k, p].Background = Brushes.Gray;
+                        }
+
+                        finalMatrixTextBox[i, p].Background = getColor(finalMatrixColor);
+                        
+                        if (i != 0 && p == 0)
+                        {
+                            finalMatrixTextBox[i - 1, columns2 - 1].Background = Brushes.Gray;
+                        } else if (i == rows1 - 1 && p == columns2 - 1)
+                        {
+                            finalMatrixTextBox[rows1 - 1, columns2 - 1].Background = Brushes.Gray;
+                        }
+                        else if (p != 0)
+                        {
+                            finalMatrixTextBox[i, p - 1].Background = Brushes.Gray;
+                        }
+                        finalMatrixTextBox[i, p].Text = finalMatrix.nums[i, p].ToString();
+                    }
 
                 }
-
             }
+            
         }
 
         public void manageButtons(bool state)
@@ -623,7 +945,6 @@ namespace Matrix_Calculator
         }
         public void timerTick(object sender, EventArgs e)
         {
-
             if (isAllMatrixCalculated())
             {
                 if (formNumber == 1)
@@ -636,8 +957,29 @@ namespace Matrix_Calculator
                     initialMatrixTextBox1[rows - 1, columns - 1].Background = Brushes.Gray;
                     initialMatrixTextBox2[rows - 1, columns - 1].Background = Brushes.Gray;
                     finalMatrixTextBox[rows - 1, columns - 1].Background = Brushes.Gray;
+                } else if (formNumber == 3)
+                {
+                    initialMatrixTextBox1[rows1 - 1, columns1 - 1].Background = Brushes.Gray;
+                    initialMatrixTextBox2[rows2 - 1, columns2 - 1].Background = Brushes.Gray;
+
+                    if (columns2 == 1 && rows1 == 1)
+                    {
+                        finalMatrixTextBox[rows1 - 1, columns2 - 1].Background = Brushes.Gray;
+                    }
+                    else if (columns2 == 1 && rows1 != 1)
+                    {
+                        finalMatrixTextBox[rows1 - 2, columns2 - 1].Background = Brushes.Gray;
+                    }
+                    else
+                    {
+                        finalMatrixTextBox[rows1 - 1, columns2 - 2].Background = Brushes.Gray;
+                    }
+
+                    finalMatrixTextBox[rows1 - 1, columns2 - 1].Background = Brushes.Gray;
+                    finalMatrixTextBox[rows1 - 1, columns2 - 1].Text = finalMatrix.nums[rows1 - 1, columns2 - 1].ToString();
+
                 }
-                
+
                 timer.Tick -= timerTick;
                 timer.Stop();
                 manageButtons(true);

@@ -32,7 +32,7 @@ namespace Matrix_Calculator
         {
             
             if (assistant.canParseRowsAndColumns(additionFormRows,
-                additionFormColumns) && assistant.canParseOperator(additionFormOperator))
+                additionFormColumns))
             {
                 assistant.enableColorsAndSpeed(additionFormInitialMatrix1Color, additionFormInitialMatrix2Color,
                 additionFormFinalMatrixColor, additionFormSpeedLight, additionFormButtonCalculate);
@@ -43,13 +43,12 @@ namespace Matrix_Calculator
                 assistant.setHeightWindow(this);
                 assistant.creationAndInsertionInnerGrid(additionFormGrid, this);
                 assistant.creationAndInsertionInitialMatrixTextBox1();
-                assistant.creationAndInsertionOperatorLabel(additionFormOperator);
                 assistant.creationAndInsertionInitialMatrixTextBox2();
                 assistant.creationAndInsertionEqualLabel();
             }
             else
             {
-                MessageBox.Show("Вы не выбрали число столбцов или строк. Или вы не выбрали знак операции. Пожалуйста, выберите одно из значений и попробуйте снова");
+                MessageBox.Show("Вы не выбрали число столбцов или строк. Пожалуйста, выберите одно из значений и попробуйте снова");
             }
         }
 
@@ -60,12 +59,14 @@ namespace Matrix_Calculator
             if (assistant.canParseInitialMatrixesTextBox()
                 && assistant.canDefineColors(additionFormInitialMatrix1Color,
                     additionFormInitialMatrix2Color,
-                    additionFormFinalMatrixColor))
+                    additionFormFinalMatrixColor) && assistant.canParseOperator(additionFormOperator))
             {
+
+                assistant.creationAndInsertionOperatorLabel(additionFormOperator);
+
                 assistant.initialMatrix1 = assistant.getInitialMatrix1();
                 assistant.initialMatrix2 = assistant.getInitialMatrix2();
 
-                //var labelOperator = (Label)additionFormGrid.FindName("operatorL");
 
                 if (additionFormOperator.Text == "+")
                 {
@@ -82,7 +83,7 @@ namespace Matrix_Calculator
             }
             else
             {
-                MessageBox.Show("Число или один (или более) элементов матрицы не являются числом. Возможно, что вы не указали цвета, которыми будут подсвечиваться элементы. Пожалуйста, исправьте это и попробуйте снова");
+                MessageBox.Show("Число или один (или более) элементов матрицы не являются числом. Или вы не выбрали знак операции.Возможно, что вы не указали цвета, которыми будут подсвечиваться элементы. Пожалуйста, исправьте это и попробуйте снова");
             }
         }
 
