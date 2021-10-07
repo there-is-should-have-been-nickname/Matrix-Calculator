@@ -75,10 +75,7 @@ namespace Matrix_Calculator
 
                 assistant.finalMatrix = assistant.initialMatrix.multiplicationOnNumber(assistant.number);
                 assistant.creationAndInsertionFinalMatrix();
-                assistant.activateTimer(multiplicationByNumberFormButtonCreate, 
-                    multiplicationByNumberFormButtonCalculate,
-                    multiplicationByNumberFormButtonBack,
-                    multiplicationByNumberFormSpeedLightLabel);
+                assistant.activateTimer(multiplicationByNumberFormSpeedLightLabel);
             } else
             {
                 MessageBox.Show("Число или один (или более) элементов матрицы не являются числом. Возможно, что вы не указали цвета, которыми будут подсвечиваться элементы. Пожалуйста, исправьте это и попробуйте снова");

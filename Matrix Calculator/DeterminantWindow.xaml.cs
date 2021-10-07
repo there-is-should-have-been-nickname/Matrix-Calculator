@@ -54,8 +54,7 @@ namespace Matrix_Calculator
             {
                 assistant.initialMatrix = assistant.getInitialMatrix();
                 assistant.determinant = assistant.initialMatrix.getDeterminant();
-                assistant.activateTimer(determinantFormButtonCreate, determinantFormButtonCalculate,
-                    determinantFormButtonBack, determinantFormSpeedLightLabel);
+                assistant.activateTimer(determinantFormSpeedLightLabel);
             }
             else
             {

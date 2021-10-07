@@ -81,9 +81,7 @@ namespace Matrix_Calculator
                 assistant.finalMatrix = assistant.initialMatrix1.multiplication(assistant.initialMatrix2);
                 
                 assistant.creationAndInsertionFinalMatrix();
-                assistant.activateTimer(multiplicationFormButtonCreate, 
-                    multiplicationFormButtonCalculate, multiplcaitionFormButtonBack, 
-                    multiplicationFormSpeedLightLabel);
+                assistant.activateTimer(multiplicationFormSpeedLightLabel);
             }
             else
             {

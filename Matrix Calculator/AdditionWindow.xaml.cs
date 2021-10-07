@@ -76,10 +76,7 @@ namespace Matrix_Calculator
                 }
                 
                 assistant.creationAndInsertionFinalMatrix();
-                assistant.activateTimer(additionFormButtonCreate,
-                    additionFormButtonCalculate,
-                    additionFormButtonBack,
-                    additionFormSpeedLightLabel);
+                assistant.activateTimer(additionFormSpeedLightLabel);
             }
             else
             {
