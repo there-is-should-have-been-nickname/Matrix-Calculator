@@ -77,7 +77,7 @@
             </ComboBoxItem>
         </ComboBox>
         <Label Content="X" HorizontalAlignment="Left" Margin="184,30,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" FontFamily="Consolas" FontSize="14" Width="20"/>
-        <Button x:Name="multiplicationByNumberFormButtonCreate" Content="Создать" Margin="294,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="multiplicationByNumberFormButtonCreate_Click"/>
+        <Button x:Name="multiplicationByNumberFormButtonCreate" Content="Создать" Margin="294,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="MultiplicationByNumberFormButtonCreate_Click"/>
 
         <ComboBox IsEnabled="False" x:Name="multiplicationByNumberFormInitialMatrixColor" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="474,30,0,0" Width="90" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
             <ComboBoxItem Content="Зеленый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -179,10 +179,10 @@
         <Label Content="Подсветка числа" HorizontalAlignment="Left" Margin="632,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
         <Label Content="Подсветка конечной матрицы" HorizontalAlignment="Left" Margin="764,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
         <Label x:Name="multiplicationByNumberFormSpeedLightLabel" Content="1" HorizontalAlignment="Left" Margin="1044,32,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14"/>
-        <Slider IsEnabled="False" x:Name="multiplicationByNumberFormSpeedLight" HorizontalAlignment="Left" Margin="939,38,0,0" VerticalAlignment="Top" Width="100" Height="18" Minimum="1" Maximum="5" TickFrequency="5" ValueChanged="multiplicationByNumberFormSpeedLight_ValueChanged"/>
+        <Slider IsEnabled="False" x:Name="multiplicationByNumberFormSpeedLight" HorizontalAlignment="Left" Margin="939,38,0,0" VerticalAlignment="Top" Width="100" Height="18" Minimum="1" Maximum="5" TickFrequency="5" ValueChanged="MultiplicationByNumberFormSpeedLight_ValueChanged"/>
         <Label Content="Скорость подсветки(сек)" HorizontalAlignment="Left" Margin="932,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
-        <Button IsEnabled="False" x:Name="multiplicationByNumberFormButtonCalculate" Content="Посчитать" Margin="1110,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="multiplicationByNumberFormButtonCalculate_Click"/>
-        <Button x:Name="multiplicationByNumberFormButtonBack" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="&#129044;" Margin="60,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="18" Background="#FFC1FFE5" BorderThickness="2" Click="multiplicationByNumberFormButtonBack_Click"/>
+        <Button IsEnabled="False" x:Name="multiplicationByNumberFormButtonCalculate" Content="Посчитать" Margin="1110,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="MultiplicationByNumberFormButtonCalculate_Click"/>
+        <Button x:Name="multiplicationByNumberFormButtonBack" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="&#129044;" Margin="60,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="18" Background="#FFC1FFE5" BorderThickness="2" Click="MultiplicationByNumberFormButtonBack_Click"/>
 
     </Grid>
 </Window>

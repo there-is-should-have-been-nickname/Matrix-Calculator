@@ -7,7 +7,7 @@ namespace Matrix_Calculator
     /// </summary>
     public partial class AdditionWindow : Window
     {
-        private Assistant assistant; 
+        private readonly Assistant assistant;
         public AdditionWindow()
         {
             InitializeComponent();
@@ -15,76 +15,76 @@ namespace Matrix_Calculator
                 additionFormButtonBack, additionFormInitialMatrix1Color,
                 additionFormInitialMatrix2Color, additionFormFinalMatrixColor);
         }
-        private void additionFormButtonCreate_Click(object sender, RoutedEventArgs e)
+        private void AdditionFormButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            if (!assistant.canParseRowsAndColumns(additionFormRows,
+            if (!assistant.CanParseRowsAndColumns(additionFormRows,
                 additionFormColumns))
             {
-                MessageBox.Show("Вы не выбрали число столбцов или строк. Пожалуйста, выберите одно из значений и попробуйте снова");
+                MessageBox.Show("Вы не выбрали число столбцов или строк. Пожалуйста, выберите одно из значений и попробуйте снова", "Сообщение");
                 return;
             }
 
-            assistant.enableColorsAndSpeed(additionFormInitialMatrix1Color, additionFormInitialMatrix2Color,
+            assistant.EnableColorsAndSpeed(additionFormInitialMatrix1Color, additionFormInitialMatrix2Color,
             additionFormFinalMatrixColor, additionFormSpeedLight, additionFormButtonCalculate);
 
 
-            assistant.parseRowsAndColumns(additionFormRows,
+            assistant.ParseRowsAndColumns(additionFormRows,
                 additionFormColumns);
-            assistant.setHeightWindow(this);
-            assistant.creationAndInsertionInnerGrid(additionFormGrid, this);
-            assistant.creationAndInsertionInitialMatrixTextBox1();
-            assistant.creationAndInsertionInitialMatrixTextBox2();
-            assistant.creationAndInsertionEqualLabel();
+            assistant.SetHeightWindow(this);
+            assistant.CreationAndInsertionInnerGrid(additionFormGrid, this);
+            assistant.CreationAndInsertionInitialMatrixTextBox1();
+            assistant.CreationAndInsertionInitialMatrixTextBox2();
+            assistant.CreationAndInsertionEqualLabel();
         }
 
-        private void additionFormButtonCalculate_Click(object sender, RoutedEventArgs e)
+        private void AdditionFormButtonCalculate_Click(object sender, RoutedEventArgs e)
         {
-            assistant.clearInitialMatrixTextBox1();
+            assistant.ClearInitialMatrixTextBox1();
 
-            if (!assistant.canParseInitialMatrixesTextBox())
+            if (!assistant.CanParseInitialMatrixesTextBox())
             {
-                MessageBox.Show("Один (или более) элементов матриц не являются числом. Пожалуйста, внесите значения и попробуйте снова");
+                MessageBox.Show("Один (или более) элементов матриц не являются числом. Пожалуйста, внесите значения и попробуйте снова", "Сообщение");
                 return;
             }
 
-            if (!assistant.canDefineColors(additionFormInitialMatrix1Color,
+            if (!assistant.CanParseOperator(additionFormOperator))
+            {
+                MessageBox.Show("Вы не выбрали знак операции. Пожалуйста, исправьте это и попробуйте снова", "Сообщение");
+                return;
+            }
+
+            if (!assistant.CanDefineColors(additionFormInitialMatrix1Color,
                     additionFormInitialMatrix2Color,
                     additionFormFinalMatrixColor))
             {
-                MessageBox.Show("Вы не выбрали знак операции. Пожалуйста, исправьте это и попробуйте снова");
+                MessageBox.Show("Вы не указали цвета, которыми будут подсвечиваться элементы. Пожалуйста, исправьте это и попробуйте снова", "Сообщение");
                 return;
             }
 
-            if (!assistant.canParseOperator(additionFormOperator))
-            {
-                MessageBox.Show("Вы не указали цвета, которыми будут подсвечиваться элементы. Пожалуйста, исправьте это и попробуйте снова");
-                return;
-            }
+            assistant.CreationAndInsertionOperatorLabel(additionFormOperator);
 
-            assistant.creationAndInsertionOperatorLabel(additionFormOperator);
-
-            assistant.initialMatrix1 = assistant.getInitialMatrix1();
-            assistant.initialMatrix2 = assistant.getInitialMatrix2();
+            assistant.initialMatrix1 = assistant.GetInitialMatrix1();
+            assistant.initialMatrix2 = assistant.GetInitialMatrix2();
 
             if (additionFormOperator.Text == "+")
             {
-                assistant.finalMatrix = assistant.initialMatrix1.addition(assistant.initialMatrix2);
+                assistant.finalMatrix = assistant.initialMatrix1.Addition(assistant.initialMatrix2);
             } else {
-                assistant.finalMatrix = assistant.initialMatrix1.substraction(assistant.initialMatrix2);
+                assistant.finalMatrix = assistant.initialMatrix1.Substraction(assistant.initialMatrix2);
             }
                 
-            assistant.creationAndInsertionFinalMatrix();
-            assistant.activateTimer(additionFormSpeedLightLabel);
+            assistant.CreationAndInsertionFinalMatrix();
+            assistant.ActivateTimer(additionFormSpeedLightLabel);
         }
 
-        private void additionFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void AdditionFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             additionFormSpeedLightLabel.Content = Math.Round(additionFormSpeedLight.Value);
         }
 
-        private void additionFormButtonBack_Click(object sender, RoutedEventArgs e)
+        private void AdditionFormButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            assistant.closeForm(this);
+            assistant.CloseForm(this);
         }
 
     }

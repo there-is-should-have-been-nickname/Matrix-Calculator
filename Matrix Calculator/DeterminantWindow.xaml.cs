@@ -7,7 +7,7 @@ namespace Matrix_Calculator
     /// </summary>
     public partial class DeterminantWindow : Window
     {
-        private Assistant assistant;
+        private readonly Assistant assistant;
         public DeterminantWindow()
         {
             InitializeComponent();
@@ -15,52 +15,52 @@ namespace Matrix_Calculator
                 determinantFormButtonBack, determinantFormInitialMatrixColor);
         }
 
-        private void determinantFormButtonCreate_Click(object sender, RoutedEventArgs e)
+        private void DeterminantFormButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            if (!assistant.canParseOrder(determinantFormOrder))
+            if (!assistant.CanParseOrder(determinantFormOrder))
             {
-                MessageBox.Show("Вы не выбрали порядок матрицы. Пожалуйста, выберите одно из значений и попробуйте снова");
+                MessageBox.Show("Вы не выбрали порядок матрицы. Пожалуйста, выберите одно из значений и попробуйте снова", "Сообщение");
                 return;
             }
             
-            assistant.parseOrder(determinantFormOrder);
-            assistant.enableColorsAndSpeed(determinantFormInitialMatrixColor,
+            assistant.ParseOrder(determinantFormOrder);
+            assistant.EnableColorsAndSpeed(determinantFormInitialMatrixColor,
                 determinantFormSpeedLight, determinantFormButtonCalculate);
-            assistant.setHeightWindow(this);
-            assistant.creationAndInsertionInnerGrid(determinantFormGrid, this);
-            assistant.creationAndInsertionInitialMatrixTextBox();
-            assistant.creationAndInsertionDeterminantTextBox();
+            assistant.SetHeightWindow(this);
+            assistant.CreationAndInsertionInnerGrid(determinantFormGrid, this);
+            assistant.CreationAndInsertionInitialMatrixTextBox();
+            assistant.CreationAndInsertionDeterminantTextBox();
         }
 
-        private void determinantFormButtonCalculate_Click(object sender, RoutedEventArgs e)
+        private void DeterminantFormButtonCalculate_Click(object sender, RoutedEventArgs e)
         {
-            assistant.clearInitialMatrixTextBox();
+            assistant.ClearInitialMatrixTextBox();
 
-            if (!assistant.canParseInitialMatrixTextBox())
+            if (!assistant.CanParseInitialMatrixTextBox())
             {
-                MessageBox.Show("Один (или более) элементов матрицы не являются числом. Пожалуйста, исправьте это и попробуйте снова");
+                MessageBox.Show("Один (или более) элементов матрицы не являются числом. Пожалуйста, исправьте это и попробуйте снова", "Сообщение");
                 return;
             }
 
-            if (!assistant.canDefineColors(determinantFormInitialMatrixColor))
+            if (!assistant.CanDefineColors(determinantFormInitialMatrixColor))
             {
-                MessageBox.Show("Вы не указали цвет подсветки. Пожалуйста, исправьте это и попробуйте снова");
+                MessageBox.Show("Вы не указали цвет подсветки. Пожалуйста, исправьте это и попробуйте снова", "Сообщение");
                 return;
             }
 
-            assistant.initialMatrix = assistant.getInitialMatrix();
-            assistant.determinant = assistant.initialMatrix.getDeterminant();
-            assistant.activateTimer(determinantFormSpeedLightLabel);
+            assistant.initialMatrix = assistant.GetInitialMatrix();
+            assistant.Determinant = assistant.initialMatrix.GetDeterminant();
+            assistant.ActivateTimer(determinantFormSpeedLightLabel);
         }
 
-        private void determinantFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void DeterminantFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             determinantFormSpeedLightLabel.Content = Math.Round(determinantFormSpeedLight.Value);
         }
 
-        private void determinantFormButtonBack_Click(object sender, RoutedEventArgs e)
+        private void DeterminantFormButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            assistant.closeForm(this);
+            assistant.CloseForm(this);
         }
     }
 }

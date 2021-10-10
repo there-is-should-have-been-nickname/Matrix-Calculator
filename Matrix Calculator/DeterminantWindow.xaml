@@ -25,7 +25,7 @@
                 <ComboBoxItem Content="3" Height="25" Width="48" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 </ComboBoxItem>
             </ComboBox>
-            <Button x:Name="determinantFormButtonCreate" Content="Создать" Margin="200,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="determinantFormButtonCreate_Click"/>
+            <Button x:Name="determinantFormButtonCreate" Content="Создать" Margin="200,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="DeterminantFormButtonCreate_Click"/>
 
             <ComboBox IsEnabled="False" x:Name="determinantFormInitialMatrixColor" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,30,0,0" Width="90" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Consolas" FontSize="14">
                 <ComboBoxItem Content="Зеленый" Height="25" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
@@ -61,10 +61,10 @@
             <Label Content="Порядок" HorizontalAlignment="Left" Margin="125,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
             <Label Content="Подсветка матрицы" HorizontalAlignment="Left" Margin="354,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
             <Label x:Name="determinantFormSpeedLightLabel" Content="1" HorizontalAlignment="Left" Margin="612,32,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="14"/>
-            <Slider IsEnabled="False" x:Name="determinantFormSpeedLight" HorizontalAlignment="Left" Margin="507,38,0,0" VerticalAlignment="Top" Width="100" Height="18" Minimum="1" Maximum="5" TickFrequency="5" ValueChanged="determinantFormSpeedLight_ValueChanged"/>
+            <Slider IsEnabled="False" x:Name="determinantFormSpeedLight" HorizontalAlignment="Left" Margin="507,38,0,0" VerticalAlignment="Top" Width="100" Height="18" Minimum="1" Maximum="5" TickFrequency="5" ValueChanged="DeterminantFormSpeedLight_ValueChanged"/>
             <Label Content="Скорость подсветки(сек)" HorizontalAlignment="Left" Margin="500,8,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="10"/>
-            <Button IsEnabled="False" x:Name="determinantFormButtonCalculate" Content="Посчитать" Margin="678,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="determinantFormButtonCalculate_Click"/>
-            <Button x:Name="determinantFormButtonBack" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="&#129044;" Margin="60,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="18" Background="#FFC1FFE5" BorderThickness="2" Click="determinantFormButtonBack_Click"/>
+            <Button IsEnabled="False" x:Name="determinantFormButtonCalculate" Content="Посчитать" Margin="678,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFC1FFE5" BorderThickness="2" Click="DeterminantFormButtonCalculate_Click"/>
+            <Button x:Name="determinantFormButtonBack" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="&#129044;" Margin="60,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="30" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="18" Background="#FFC1FFE5" BorderThickness="2" Click="DeterminantFormButtonBack_Click"/>
         </Grid>
     </Grid>
 </Window>

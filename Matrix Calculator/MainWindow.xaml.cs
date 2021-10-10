@@ -11,19 +11,19 @@ namespace Matrix_Calculator
             InitializeComponent();
         }
 
-        private void mainFormButtonExit_Click(object sender, RoutedEventArgs e)
+        private void MainFormButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        private void mainFormButtonHelp_Click(object sender, RoutedEventArgs e)
+        private void MainFormButtonHelp_Click(object sender, RoutedEventArgs e)
         {
             var helpWindow = new helpWindow();
             helpWindow.Show();
             Close();
         }
 
-        private void mainFormButtonActions_Click(object sender, RoutedEventArgs e)
+        private void MainFormButtonActions_Click(object sender, RoutedEventArgs e)
         {
             var actionsWindow = new ActionsWindow();
             actionsWindow.Show();

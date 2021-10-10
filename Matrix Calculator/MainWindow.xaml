@@ -14,12 +14,12 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid HorizontalAlignment="Left" Height="330" Margin="120,34,0,0" VerticalAlignment="Top" Width="562">
-            <Button x:Name="mainFormButtonActions" Content="Доступные вычисления" HorizontalAlignment="Left" Margin="175,139,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFF3EB99" BorderThickness="2" Click="mainFormButtonActions_Click"/>
+            <Button x:Name="mainFormButtonActions" Content="Доступные вычисления" HorizontalAlignment="Left" Margin="175,139,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFF3EB99" BorderThickness="2" Click="MainFormButtonActions_Click"/>
             <Border x:Name="mainFormBorder" BorderBrush="#FF6CA011" BorderThickness="4" HorizontalAlignment="Left" Height="80" Margin="42,21,0,0" VerticalAlignment="Top" Width="479" CornerRadius="5">
                 <Label x:Name="mainFormLabel" Content="Визуализатор матричных вычислений" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="80" Width="479" Foreground="Black" FontSize="24" Margin="-1" FontFamily="Consolas"/>
             </Border>
-            <Button x:Name="mainFormButtonHelp" Content="Помощь" HorizontalAlignment="Left" Margin="175,195,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FF6FD8D4" BorderThickness="2" Click="mainFormButtonHelp_Click"/>
-            <Button x:Name="mainFormButtonExit" Content="Выход" HorizontalAlignment="Left" Margin="175,251,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFCD80C9" BorderThickness="2" Click="mainFormButtonExit_Click"/>
+            <Button x:Name="mainFormButtonHelp" Content="Помощь" HorizontalAlignment="Left" Margin="175,195,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FF6FD8D4" BorderThickness="2" Click="MainFormButtonHelp_Click"/>
+            <Button x:Name="mainFormButtonExit" Content="Выход" HorizontalAlignment="Left" Margin="175,251,0,0" VerticalAlignment="Top" Width="211" Height="40" BorderBrush="#FF2B16B4" FontFamily="Consolas" FontSize="14" Background="#FFCD80C9" BorderThickness="2" Click="MainFormButtonExit_Click"/>
         </Grid>
     </Grid>
 </Window>

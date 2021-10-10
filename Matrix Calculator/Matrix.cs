@@ -17,8 +17,8 @@ namespace Matrix_Calculator
         {
             if (rows > 0 && columns > 0)
             {
-                this.Rows = rows;
-                this.Columns = columns;
+                Rows = rows;
+                Columns = columns;
 
                 this.nums = new int[rows, columns];
 
@@ -36,11 +36,11 @@ namespace Matrix_Calculator
 
         }
 
-        public Matrix addition(Matrix matrix2)
+        public Matrix Addition(Matrix matrix2)
         {
             if (Rows == matrix2.Rows && Columns == matrix2.Columns)
             {
-                int [,]additionMas = new int[Rows, Columns];
+                int[,] additionMas = new int[Rows, Columns];
 
                 for (int i = 0; i < Rows; ++i)
                 {
@@ -56,7 +56,7 @@ namespace Matrix_Calculator
                 throw new ArgumentException("Dimension of the matrices is different");
             }
         }
-        public Matrix substraction(Matrix matrix2)
+        public Matrix Substraction(Matrix matrix2)
         {
             if (Rows == matrix2.Rows && Columns == matrix2.Columns)
             {
@@ -77,7 +77,7 @@ namespace Matrix_Calculator
                 throw new ArgumentException("Dimension of the matrices is different");
             }
         }
-        public Matrix multiplication(Matrix matrix2)
+        public Matrix Multiplication(Matrix matrix2)
         {
             if (Columns == matrix2.Rows)
             {
@@ -87,7 +87,7 @@ namespace Matrix_Calculator
                 {
                     for (int p = 0; p < matrix2.Columns; ++p)
                     {
-                        int num = multiplicationRowOnColumn(Columns, nums, matrix2.nums, i, p);
+                        int num = MultiplicationRowOnColumn(Columns, nums, matrix2.nums, i, p);
 
                         multiplicationMas[i, p] = num;
                     }
@@ -101,7 +101,7 @@ namespace Matrix_Calculator
             }
         }
 
-        public Matrix multiplicationOnNumber(int number)
+        public Matrix MultiplicationOnNumber(int number)
         {
             int[,] multiplicationOnNumberMas = new int[Rows, Columns];
 
@@ -116,7 +116,7 @@ namespace Matrix_Calculator
             return new Matrix(Rows, Columns, multiplicationOnNumberMas);
         }
 
-        public Matrix transposition() {
+        public Matrix Transposition() {
             int[,] transpositionMas = new int[Columns, Rows];
 
             for (int i = 0; i < Rows; ++i)
@@ -130,7 +130,7 @@ namespace Matrix_Calculator
             return new Matrix(Columns, Rows, transpositionMas);
         }
 
-        private int multiplicationRowOnColumn(int columns1, int[,] mas1, int[,] mas2, int indRow, int indColumn)
+        private int MultiplicationRowOnColumn(int columns1, int[,] mas1, int[,] mas2, int indRow, int indColumn)
         {
             int result = 0;
             for (int i = 0; i < columns1; ++i)
@@ -140,7 +140,7 @@ namespace Matrix_Calculator
             return result;
         }
 
-        public int getDeterminant()
+        public int GetDeterminant()
         {
             if (Rows == Columns)
             {
@@ -164,8 +164,8 @@ namespace Matrix_Calculator
                     for (int i = 0; i < Rows; ++i)
                     {
                         int indexRow = i, indexColumn = 0;
-                        var newMatrix = getReducedMatrix(indexRow, indexColumn);
-                        int minor = newMatrix.getDeterminant();
+                        var newMatrix = GetReducedMatrix(indexRow, indexColumn);
+                        int minor = newMatrix.GetDeterminant();
                         int algebraicComplement = Convert.ToInt32(Math.Pow(-1, indexRow + indexColumn)) * minor;
 
                         sum += nums[indexRow, indexColumn] * algebraicComplement;
@@ -179,7 +179,7 @@ namespace Matrix_Calculator
             }
         }
 
-        private Matrix getReducedMatrix(int indDeleteRow, int indDeleteColumn)
+        private Matrix GetReducedMatrix(int indDeleteRow, int indDeleteColumn)
         {
             int newSize = Rows - 1;
             int[,] newMas = new int[newSize, newSize];

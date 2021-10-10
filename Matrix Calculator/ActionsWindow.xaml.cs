@@ -11,7 +11,7 @@ namespace Matrix_Calculator
             InitializeComponent();
         }
 
-        private void actionsFormButton_Click(object sender, RoutedEventArgs e)
+        private void ActionsFormButton_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = new MainWindow();
             mainWindow.Show();
@@ -19,35 +19,35 @@ namespace Matrix_Calculator
             Close();
         }
 
-        private void actionsFormButtonMultiplicationByNumber_Click(object sender, RoutedEventArgs e)
+        private void ActionsFormButtonMultiplicationByNumber_Click(object sender, RoutedEventArgs e)
         {
             var mulpByNumber = new MultiplicationByNumberWindow();
             mulpByNumber.Show();
             Close();
         }
 
-        private void actionsFormButtonAdditionButton_Click(object sender, RoutedEventArgs e)
+        private void ActionsFormButtonAdditionButton_Click(object sender, RoutedEventArgs e)
         {
             var add = new AdditionWindow();
             add.Show();
             Close();
         }
 
-        private void actionsFormButtonMultiplicationButton_Click(object sender, RoutedEventArgs e)
+        private void ActionsFormButtonMultiplicationButton_Click(object sender, RoutedEventArgs e)
         {
             var mult = new MultiplicationWindow();
             mult.Show();
             Close();
         }
 
-        private void actionsFormButtonBack_Click(object sender, RoutedEventArgs e)
+        private void ActionsFormButtonBack_Click(object sender, RoutedEventArgs e)
         {
             var main = new MainWindow();
             main.Show();
             Close();
         }
 
-        private void actionsFormButtonDeterminateButton_Click(object sender, RoutedEventArgs e)
+        private void ActionsFormButtonDeterminateButton_Click(object sender, RoutedEventArgs e)
         {
             var det = new DeterminantWindow();
             det.Show();

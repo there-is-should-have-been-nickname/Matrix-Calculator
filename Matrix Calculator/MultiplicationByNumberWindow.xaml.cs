@@ -7,7 +7,7 @@ namespace Matrix_Calculator
     /// </summary>
     public partial class MultiplicationByNumberWindow : Window
     {
-        private Assistant assistant;
+        private readonly Assistant assistant;
 
         public MultiplicationByNumberWindow()
         {
@@ -17,9 +17,9 @@ namespace Matrix_Calculator
                 multiplicationByNumberFormButtonBack, multiplicationByNumberFormInitialMatrixColor,
                 multiplicationByNumberFormNumberColor, multiplicationByNumberFormFinalMatrixColor);   
         }
-        private void multiplicationByNumberFormButtonCreate_Click(object sender, RoutedEventArgs e)
+        private void MultiplicationByNumberFormButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            if (!assistant.canParseRowsAndColumns(multiplicationByNumberFormRows,
+            if (!assistant.CanParseRowsAndColumns(multiplicationByNumberFormRows,
                 multiplicationByNumberFormColumns))
             {
                 MessageBox.Show("Вы не выбрали число столбцов или строк. Пожалуйста, " +
@@ -27,41 +27,41 @@ namespace Matrix_Calculator
                 return;
             }
             
-            assistant.enableColorsAndSpeed(multiplicationByNumberFormInitialMatrixColor,
+            assistant.EnableColorsAndSpeed(multiplicationByNumberFormInitialMatrixColor,
             multiplicationByNumberFormNumberColor,
             multiplicationByNumberFormFinalMatrixColor,
             multiplicationByNumberFormSpeedLight,
             multiplicationByNumberFormButtonCalculate);
 
-            assistant.parseRowsAndColumns(multiplicationByNumberFormRows,
+            assistant.ParseRowsAndColumns(multiplicationByNumberFormRows,
                 multiplicationByNumberFormColumns);
-            assistant.setHeightWindow(this);
-            assistant.creationAndInsertionInnerGrid(multiplicationByNumberFormGrid, this);
-            assistant.creationAndInsertionInitialMatrixTextBox();
-            assistant.creationAndInsertionOperatorLabel();
-            assistant.creationAndInsertionNumberTextBox();
-            assistant.creationAndInsertionEqualLabel();
+            assistant.SetHeightWindow(this);
+            assistant.CreationAndInsertionInnerGrid(multiplicationByNumberFormGrid, this);
+            assistant.CreationAndInsertionInitialMatrixTextBox();
+            assistant.CreationAndInsertionOperatorLabel();
+            assistant.CreationAndInsertionNumberTextBox();
+            assistant.CreationAndInsertionEqualLabel();
         }
 
-        private void multiplicationByNumberFormButtonCalculate_Click(object sender, RoutedEventArgs e)
+        private void MultiplicationByNumberFormButtonCalculate_Click(object sender, RoutedEventArgs e)
         {
-            assistant.clearInitialMatrixTextBox();
+            assistant.ClearInitialMatrixTextBox();
             
-            if (!assistant.canParseInitialMatrixTextBox())
+            if (!assistant.CanParseInitialMatrixTextBox())
             {
                 MessageBox.Show("Один (или более) элементов матрицы не являются числом. Пожалуйста, " +
                     "внесите значения и попробуйте снова", "Сообщение");
                 return;
             }
 
-            if (!assistant.canParseNumberTextBox())
+            if (!assistant.CanParseNumberTextBox())
             {
                 MessageBox.Show("Число, на которое вы собираетесь умножать, не является числом. Пожалуйста, " +
                    "внесите значение и попробуйте снова", "Сообщение");
                 return;
             }
 
-            if (!assistant.canDefineColors(multiplicationByNumberFormInitialMatrixColor,
+            if (!assistant.CanDefineColors(multiplicationByNumberFormInitialMatrixColor,
                     multiplicationByNumberFormNumberColor,
                     multiplicationByNumberFormFinalMatrixColor))
             {
@@ -69,22 +69,22 @@ namespace Matrix_Calculator
                 return;
             }
 
-            assistant.initialMatrix = assistant.getInitialMatrix();
-            assistant.number = Convert.ToInt32(assistant.numberTextBox.Text);
+            assistant.initialMatrix = assistant.GetInitialMatrix();
+            assistant.Number = Convert.ToInt32(assistant.numberTextBox.Text);
 
-            assistant.finalMatrix = assistant.initialMatrix.multiplicationOnNumber(assistant.number);
-            assistant.creationAndInsertionFinalMatrix();
-            assistant.activateTimer(multiplicationByNumberFormSpeedLightLabel);
+            assistant.finalMatrix = assistant.initialMatrix.MultiplicationOnNumber(assistant.Number);
+            assistant.CreationAndInsertionFinalMatrix();
+            assistant.ActivateTimer(multiplicationByNumberFormSpeedLightLabel);
         }
 
-        private void multiplicationByNumberFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void MultiplicationByNumberFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             multiplicationByNumberFormSpeedLightLabel.Content = Math.Round(multiplicationByNumberFormSpeedLight.Value);
         }
 
-        private void multiplicationByNumberFormButtonBack_Click(object sender, RoutedEventArgs e)
+        private void MultiplicationByNumberFormButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            assistant.closeForm(this);
+            assistant.CloseForm(this);
         }
     }
 }
