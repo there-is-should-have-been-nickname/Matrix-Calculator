@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Matrix_Calculator"
         mc:Ignorable="d"
-        Title="ActionsWindow" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Операции" Height="450" Width="800" ResizeMode="NoResize">
     <Grid x:Name="actionsFormGrid">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

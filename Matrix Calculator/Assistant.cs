@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-
 namespace Matrix_Calculator
 {
     public class Assistant
@@ -28,8 +23,6 @@ namespace Matrix_Calculator
         public TextBox numberTextBox;
         public TextBox determinantTextBox;
 
-        public System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
-
         public ComboBox initialMatrixColor;
         public ComboBox initialMatrix1Color;
         public ComboBox initialMatrix2Color;
@@ -38,6 +31,8 @@ namespace Matrix_Calculator
         public Button buttonCreate;
         public Button buttonCalculate;
         public Button buttonBack;
+
+        public System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
 
         /// <summary>
         /// Parameters for calculation
@@ -1058,6 +1053,13 @@ namespace Matrix_Calculator
             timer.Start();
 
             manageButtons(false);
+        }
+
+        public void closeForm(Window window)
+        {
+            var actions = new ActionsWindow();
+            actions.Show();
+            window.Close();
         }
     }
 }

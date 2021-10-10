@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
 namespace Matrix_Calculator
 {
     /// <summary>
@@ -29,57 +17,64 @@ namespace Matrix_Calculator
                 multiplicationByNumberFormButtonBack, multiplicationByNumberFormInitialMatrixColor,
                 multiplicationByNumberFormNumberColor, multiplicationByNumberFormFinalMatrixColor);   
         }
-
-        
-
         private void multiplicationByNumberFormButtonCreate_Click(object sender, RoutedEventArgs e)
         {
-            
-            if (assistant.canParseRowsAndColumns(multiplicationByNumberFormRows, 
+            if (!assistant.canParseRowsAndColumns(multiplicationByNumberFormRows,
                 multiplicationByNumberFormColumns))
             {
-                assistant.enableColorsAndSpeed(multiplicationByNumberFormInitialMatrixColor,
-                multiplicationByNumberFormNumberColor,
-                multiplicationByNumberFormFinalMatrixColor,
-                multiplicationByNumberFormSpeedLight,
-                multiplicationByNumberFormButtonCalculate);
-
-                assistant.parseRowsAndColumns(multiplicationByNumberFormRows,
-                    multiplicationByNumberFormColumns);
-                assistant.setHeightWindow(this);
-                assistant.creationAndInsertionInnerGrid(multiplicationByNumberFormGrid, this);
-                assistant.creationAndInsertionInitialMatrixTextBox();
-                assistant.creationAndInsertionOperatorLabel();
-                assistant.creationAndInsertionNumberTextBox();
-                assistant.creationAndInsertionEqualLabel();
-            }
-            else
-            {
-                MessageBox.Show("Вы не выбрали число столбцов или строк. Пожалуйста, выберите одно из значений и попробуйте снова");
+                MessageBox.Show("Вы не выбрали число столбцов или строк. Пожалуйста, " +
+                    "выберите одно из значений и попробуйте снова", "Сообщение");
+                return;
             }
             
+            assistant.enableColorsAndSpeed(multiplicationByNumberFormInitialMatrixColor,
+            multiplicationByNumberFormNumberColor,
+            multiplicationByNumberFormFinalMatrixColor,
+            multiplicationByNumberFormSpeedLight,
+            multiplicationByNumberFormButtonCalculate);
+
+            assistant.parseRowsAndColumns(multiplicationByNumberFormRows,
+                multiplicationByNumberFormColumns);
+            assistant.setHeightWindow(this);
+            assistant.creationAndInsertionInnerGrid(multiplicationByNumberFormGrid, this);
+            assistant.creationAndInsertionInitialMatrixTextBox();
+            assistant.creationAndInsertionOperatorLabel();
+            assistant.creationAndInsertionNumberTextBox();
+            assistant.creationAndInsertionEqualLabel();
         }
 
         private void multiplicationByNumberFormButtonCalculate_Click(object sender, RoutedEventArgs e)
         {
             assistant.clearInitialMatrixTextBox();
             
-            if (assistant.canParseInitialMatrixTextBox() 
-                && assistant.canParseNumberTextBox() 
-                && assistant.canDefineColors(multiplicationByNumberFormInitialMatrixColor,
+            if (!assistant.canParseInitialMatrixTextBox())
+            {
+                MessageBox.Show("Один (или более) элементов матрицы не являются числом. Пожалуйста, " +
+                    "внесите значения и попробуйте снова", "Сообщение");
+                return;
+            }
+
+            if (!assistant.canParseNumberTextBox())
+            {
+                MessageBox.Show("Число, на которое вы собираетесь умножать, не является числом. Пожалуйста, " +
+                   "внесите значение и попробуйте снова", "Сообщение");
+                return;
+            }
+
+            if (!assistant.canDefineColors(multiplicationByNumberFormInitialMatrixColor,
                     multiplicationByNumberFormNumberColor,
                     multiplicationByNumberFormFinalMatrixColor))
             {
-                assistant.initialMatrix = assistant.getInitialMatrix();
-                assistant.number = Convert.ToInt32(assistant.numberTextBox.Text);
-
-                assistant.finalMatrix = assistant.initialMatrix.multiplicationOnNumber(assistant.number);
-                assistant.creationAndInsertionFinalMatrix();
-                assistant.activateTimer(multiplicationByNumberFormSpeedLightLabel);
-            } else
-            {
-                MessageBox.Show("Число или один (или более) элементов матрицы не являются числом. Возможно, что вы не указали цвета, которыми будут подсвечиваться элементы. Пожалуйста, исправьте это и попробуйте снова");
+                MessageBox.Show("Не указаны цвета, которыми будут подсвечиваться элементы", "Сообщение");
+                return;
             }
+
+            assistant.initialMatrix = assistant.getInitialMatrix();
+            assistant.number = Convert.ToInt32(assistant.numberTextBox.Text);
+
+            assistant.finalMatrix = assistant.initialMatrix.multiplicationOnNumber(assistant.number);
+            assistant.creationAndInsertionFinalMatrix();
+            assistant.activateTimer(multiplicationByNumberFormSpeedLightLabel);
         }
 
         private void multiplicationByNumberFormSpeedLight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -89,9 +84,7 @@ namespace Matrix_Calculator
 
         private void multiplicationByNumberFormButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            var actions = new ActionsWindow();
-            actions.Show();
-            Close();
+            assistant.closeForm(this);
         }
     }
 }

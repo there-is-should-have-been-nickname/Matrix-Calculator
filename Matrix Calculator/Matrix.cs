@@ -1,11 +1,10 @@
 ﻿using System;
-
 namespace Matrix_Calculator
 {
     public class Matrix
     {
-        public int rows { get; }
-        public int columns { get; }
+        public int Rows { get; }
+        public int Columns { get; }
 
         public int[,] nums;
 
@@ -18,8 +17,8 @@ namespace Matrix_Calculator
         {
             if (rows > 0 && columns > 0)
             {
-                this.rows = rows;
-                this.columns = columns;
+                this.Rows = rows;
+                this.Columns = columns;
 
                 this.nums = new int[rows, columns];
 
@@ -39,19 +38,19 @@ namespace Matrix_Calculator
 
         public Matrix addition(Matrix matrix2)
         {
-            if (rows == matrix2.rows && columns == matrix2.columns)
+            if (Rows == matrix2.Rows && Columns == matrix2.Columns)
             {
-                int [,]additionMas = new int[rows, columns];
+                int [,]additionMas = new int[Rows, Columns];
 
-                for (int i = 0; i < rows; ++i)
+                for (int i = 0; i < Rows; ++i)
                 {
-                    for (int p = 0; p < columns; ++p)
+                    for (int p = 0; p < Columns; ++p)
                     {
                         additionMas[i, p] = nums[i, p] + matrix2.nums[i, p];
                     }
                 }
 
-                return new Matrix(rows, columns, additionMas);
+                return new Matrix(Rows, Columns, additionMas);
             } else
             {
                 throw new ArgumentException("Dimension of the matrices is different");
@@ -59,19 +58,19 @@ namespace Matrix_Calculator
         }
         public Matrix substraction(Matrix matrix2)
         {
-            if (rows == matrix2.rows && columns == matrix2.columns)
+            if (Rows == matrix2.Rows && Columns == matrix2.Columns)
             {
-                int[,] substractionMas = new int[rows, columns];
+                int[,] substractionMas = new int[Rows, Columns];
 
-                for (int i = 0; i < rows; ++i)
+                for (int i = 0; i < Rows; ++i)
                 {
-                    for (int p = 0; p < columns; ++p)
+                    for (int p = 0; p < Columns; ++p)
                     {
                         substractionMas[i, p] = nums[i, p] - matrix2.nums[i, p];
                     }
                 }
 
-                return new Matrix(rows, matrix2.columns, substractionMas);
+                return new Matrix(Rows, matrix2.Columns, substractionMas);
             }
             else
             {
@@ -80,21 +79,21 @@ namespace Matrix_Calculator
         }
         public Matrix multiplication(Matrix matrix2)
         {
-            if (columns == matrix2.rows)
+            if (Columns == matrix2.Rows)
             {
-                int[,] multiplicationMas = new int[rows, matrix2.columns];
+                int[,] multiplicationMas = new int[Rows, matrix2.Columns];
 
-                for (int i = 0; i < rows; ++i)
+                for (int i = 0; i < Rows; ++i)
                 {
-                    for (int p = 0; p < matrix2.columns; ++p)
+                    for (int p = 0; p < matrix2.Columns; ++p)
                     {
-                        int num = multiplicationRowOnColumn(columns, nums, matrix2.nums, i, p);
+                        int num = multiplicationRowOnColumn(Columns, nums, matrix2.nums, i, p);
 
                         multiplicationMas[i, p] = num;
                     }
                 }
 
-                return new Matrix(rows, matrix2.columns, multiplicationMas);
+                return new Matrix(Rows, matrix2.Columns, multiplicationMas);
             }
             else
             {
@@ -104,31 +103,31 @@ namespace Matrix_Calculator
 
         public Matrix multiplicationOnNumber(int number)
         {
-            int[,] multiplicationOnNumberMas = new int[rows, columns];
+            int[,] multiplicationOnNumberMas = new int[Rows, Columns];
 
-            for (int i = 0; i < rows; ++i)
+            for (int i = 0; i < Rows; ++i)
             {
-                for (int p = 0; p < columns; ++p)
+                for (int p = 0; p < Columns; ++p)
                 {
                     multiplicationOnNumberMas[i, p] = nums[i, p] * number;
                 }
             }
 
-            return new Matrix(rows, columns, multiplicationOnNumberMas);
+            return new Matrix(Rows, Columns, multiplicationOnNumberMas);
         }
 
         public Matrix transposition() {
-            int[,] transpositionMas = new int[columns, rows];
+            int[,] transpositionMas = new int[Columns, Rows];
 
-            for (int i = 0; i < rows; ++i)
+            for (int i = 0; i < Rows; ++i)
             {
-                for (int p = 0; p < columns; ++p)
+                for (int p = 0; p < Columns; ++p)
                 {
                     transpositionMas[p, i] = nums[i, p];
                 }
             }
 
-            return new Matrix(columns, rows, transpositionMas);
+            return new Matrix(Columns, Rows, transpositionMas);
         }
 
         private int multiplicationRowOnColumn(int columns1, int[,] mas1, int[,] mas2, int indRow, int indColumn)
@@ -143,9 +142,9 @@ namespace Matrix_Calculator
 
         public int getDeterminant()
         {
-            if (rows == columns)
+            if (Rows == Columns)
             {
-                int order = rows;
+                int order = Rows;
 
                 if (order == 1)
                 {
@@ -162,7 +161,7 @@ namespace Matrix_Calculator
                 {
                     int sum = 0;
 
-                    for (int i = 0; i < rows; ++i)
+                    for (int i = 0; i < Rows; ++i)
                     {
                         int indexRow = i, indexColumn = 0;
                         var newMatrix = getReducedMatrix(indexRow, indexColumn);
@@ -182,12 +181,12 @@ namespace Matrix_Calculator
 
         private Matrix getReducedMatrix(int indDeleteRow, int indDeleteColumn)
         {
-            int newSize = rows - 1;
+            int newSize = Rows - 1;
             int[,] newMas = new int[newSize, newSize];
 
-            for (int i = 0; i < rows; ++i)
+            for (int i = 0; i < Rows; ++i)
             {
-                for (int p = 0; p < columns; ++p)
+                for (int p = 0; p < Columns; ++p)
                 {
                     if (i < indDeleteRow && p < indDeleteColumn)
                     {

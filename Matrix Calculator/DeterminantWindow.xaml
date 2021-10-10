@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Matrix_Calculator"
         mc:Ignorable="d"
-        Title="DeterminantWindow" Height="360" Width="900">
+        Title="Нахождение определителя" Height="360" Width="900" ResizeMode="NoResize">
     <Grid>
         <Grid x:Name="determinantFormGrid">
             <Grid.Background>
