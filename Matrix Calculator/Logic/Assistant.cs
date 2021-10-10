@@ -68,7 +68,7 @@ namespace Matrix_Calculator
             grid.HorizontalAlignment = HorizontalAlignment.Left;
             grid.VerticalAlignment = VerticalAlignment.Top;
             grid.Width = window.Width - 50 - 50;
-            grid.Background = Brushes.Gray;
+            grid.Background = Brushes.Transparent;
             grid.Margin = new Thickness(50, marginTop, 0, 0);
             grid.Height = window.Height - marginTop - 90;
         }
@@ -83,6 +83,7 @@ namespace Matrix_Calculator
             element.VerticalContentAlignment = VerticalAlignment.Center;
             element.VerticalAlignment = VerticalAlignment.Top;
             element.HorizontalAlignment = HorizontalAlignment.Left;
+            element.Background = Brushes.Gray;
             element.Margin = new Thickness(marginLeft, marginTop, 0, 0);
         }
 

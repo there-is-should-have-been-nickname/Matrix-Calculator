@@ -58,62 +58,62 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ActionsWindow.xaml">
+    <Page Include="View\ActionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdditionWindow.xaml">
+    <Page Include="View\AdditionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DeterminantWindow.xaml">
+    <Page Include="View\DeterminantWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HelpWindow.xaml">
+    <Page Include="View\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ActionsWindow.xaml.cs">
+    <Compile Include="View\ActionsWindow.xaml.cs">
       <DependentUpon>ActionsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdditionWindow.xaml.cs">
+    <Compile Include="View\AdditionWindow.xaml.cs">
       <DependentUpon>AdditionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Assistant.cs" />
-    <Compile Include="DeterminantWindow.xaml.cs">
+    <Compile Include="Logic\Assistant.cs" />
+    <Compile Include="View\DeterminantWindow.xaml.cs">
       <DependentUpon>DeterminantWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HelpWindow.xaml.cs">
+    <Compile Include="View\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MultiplicationByNumberWindow.xaml">
+    <Page Include="View\MultiplicationByNumberWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MultiplicationWindow.xaml">
+    <Page Include="View\MultiplicationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Matrix.cs" />
-    <Compile Include="MultiplicationByNumberWindow.xaml.cs">
+    <Compile Include="Logic\Matrix.cs" />
+    <Compile Include="View\MultiplicationByNumberWindow.xaml.cs">
       <DependentUpon>MultiplicationByNumberWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MultiplicationWindow.xaml.cs">
+    <Compile Include="View\MultiplicationWindow.xaml.cs">
       <DependentUpon>MultiplicationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
