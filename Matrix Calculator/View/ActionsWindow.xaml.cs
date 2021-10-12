@@ -11,14 +11,6 @@ namespace Matrix_Calculator
             InitializeComponent();
         }
 
-        private void ActionsFormButton_Click(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-
-            Close();
-        }
-
         private void ActionsFormButtonMultiplicationByNumber_Click(object sender, RoutedEventArgs e)
         {
             var mulpByNumber = new MultiplicationByNumberWindow();
@@ -44,6 +36,7 @@ namespace Matrix_Calculator
         {
             var main = new MainWindow();
             main.Show();
+            main.ActivateOperationsButton();
             Close();
         }
 

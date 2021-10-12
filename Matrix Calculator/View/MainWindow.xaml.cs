@@ -18,7 +18,7 @@ namespace Matrix_Calculator
 
         private void MainFormButtonHelp_Click(object sender, RoutedEventArgs e)
         {
-            var helpWindow = new helpWindow();
+            var helpWindow = new HelpWindow();
             helpWindow.Show();
             Close();
         }
@@ -28,6 +28,11 @@ namespace Matrix_Calculator
             var actionsWindow = new ActionsWindow();
             actionsWindow.Show();
             Close();
+        }
+
+        public void ActivateOperationsButton()
+        {
+            mainFormButtonActions.IsEnabled = true;
         }
     }
 }

@@ -29,7 +29,6 @@ namespace Matrix_Calculator
             assistant.SetHeightWindow(this);
             assistant.CreationAndInsertionInnerGrid(determinantFormGrid, this);
             assistant.CreationAndInsertionInitialMatrixTextBox();
-            assistant.CreationAndInsertionDeterminantTextBox();
         }
 
         private void DeterminantFormButtonCalculate_Click(object sender, RoutedEventArgs e)
@@ -49,6 +48,7 @@ namespace Matrix_Calculator
             }
 
             assistant.initialMatrix = assistant.GetInitialMatrix();
+            assistant.CreationAndInsertionDeterminantTextBox();
             assistant.Determinant = assistant.initialMatrix.GetDeterminant();
             assistant.ActivateTimer(determinantFormSpeedLightLabel);
         }
