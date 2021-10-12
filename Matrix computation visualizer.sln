@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrix computation visualizer", "Matrix computaion visualizer\Matrix computation visualizer.csproj", "{5C8C3B69-4CB2-4C2F-80F1-0A4ACD24F37B}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{A735E322-623D-4E0B-8BDA-920C2A8E7D29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{5C8C3B69-4CB2-4C2F-80F1-0A4ACD24F37B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C8C3B69-4CB2-4C2F-80F1-0A4ACD24F37B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C8C3B69-4CB2-4C2F-80F1-0A4ACD24F37B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A735E322-623D-4E0B-8BDA-920C2A8E7D29}.Debug|Any CPU.ActiveCfg = Debug
+		{A735E322-623D-4E0B-8BDA-920C2A8E7D29}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
